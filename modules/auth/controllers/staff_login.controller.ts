@@ -5,7 +5,7 @@ import ResponseHandler from '../../../handlers/response.handler';
 import { LoginAuth, MODULES_KEY } from '../../../interfaces/login.interface';
 import { SendEmail } from '../../../services/mail';
 import LoggedInEmailTemplate from '../../../services/mail/templates/logged_in.template';
-import LecturerSchema from '../../general/lecturer/schema';
+import StaffSchema from '../../general/lecturer/schema';
 import AuthSchema from '../schema';
 
 export default async function LecturerLogin(

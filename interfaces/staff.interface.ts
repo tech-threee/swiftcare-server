@@ -17,3 +17,37 @@ export interface DoctorInterface extends StaffRecord {
 export interface NurseInterface extends StaffRecord {
 
 }
+
+import mongoose from 'mongoose';
+
+interface ProjectArea {
+    projectAreaId: mongoose.Types.ObjectId;
+    status: string; // active | inactive;
+}
+
+export interface FindStaffWhere {
+    field: keyof StaffRecord;
+    value: string;
+}
+
+export interface Pagination {
+    limit: number;
+    skip: number;
+}
+
+export interface Lecturer {
+    image: string;
+    title: string;
+    surname: string;
+    otherNames: string;
+    staffID: string;
+    email: string;
+    phone: string;
+    projectArea: ProjectArea[];
+    officeHours: string;
+    officeLocation: string;
+}
+
+export interface SearchWithPagination extends Pagination {
+    query: string;
+}
