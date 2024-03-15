@@ -26,11 +26,21 @@ export interface LoginAuth {
   pin: string;
 }
 
+export interface PatientLoginAuth {
+  email: string;
+  otp: string
+}
+
 // export type UserTypes = 'student' | 'lecturer' | 'staff'
 
 export interface UserTokenPayload {
-  sid: string;
-  role: MODULES_KEY;
+  sid?: string;
+  role?: MODULES_KEY;
+  pid?: string
+}
+
+export interface PatientTokenPayload {
+  pid: string
 }
 
 export type MODULES_KEY = keyof typeof AppConstants.MODULES;

@@ -46,7 +46,7 @@ export const GenerateToken = (
   //   Create access token
   // console.log("JWT", EnvConstants.JWT_ACCESS_SECRET)
   const accessToken = jwt.sign(
-    { academicId: user.sid, roles: user.role, },
+    { id: user.pid ?? user.sid, roles: user?.role || "student", },
     EnvConstants.JWT_ACCESS_SECRET,
     {
       expiresIn: EnvConstants.JWT_ACCESS_EXPIRATION,
@@ -55,7 +55,7 @@ export const GenerateToken = (
 
   //   Create refresh token
   const refreshToken = jwt.sign(
-    { academicId: user.sid, roles: user.role, },
+    { id: user.pid ?? user.sid, roles: user?.role || "student", },
     EnvConstants.JWT_REFRESH_SECRET,
     {
       expiresIn: EnvConstants.JWT_REFRESH_EXPIRATION,
@@ -83,7 +83,7 @@ export const VerifyToken = async (
 };
 
 /**
- * 
+ *
  * @param roles  mongoose.Types.ObjectId[]
  * @param type MODULES_KEY
  * @returns Promise<boolean>

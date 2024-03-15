@@ -3,17 +3,21 @@ import {
   LoginAuth,
   LoginRow,
   MODULES_KEY,
+  PatientLoginAuth,
   UpdateLoginRow,
 } from '../../interfaces/login.interface';
-import { ComparePassword, GenerateToken } from '../../utils/auth';
+import { BcryptPassword, ComparePassword, GenerateToken } from '../../utils/auth';
 import mongoose from 'mongoose';
 import { HttpStatus } from '../../handlers/handler.util';
-import { LOGIN } from '../../models';
+import { LOGIN, PATIENT } from '../../models';
 import ApiError from '../../utils/apiError';
 
 export default class AuthSchema {
   private static async getSafe(loginRow: typeof LOGIN) {
     return { ...loginRow, pin: undefined, token: undefined };
+  }
+  private static async getSafePatient(loginRow: typeof PATIENT) {
+    return { ...loginRow, otp: null, token: null }
   }
   static async isExistingSid(sid: string) {
     try {
@@ -81,6 +85,67 @@ export default class AuthSchema {
       await loginRow.save();
 
       const loginData = AuthSchema.getSafe(loginRow.toObject());
+
+      return { login: loginData, token: accessToken };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async PatientRequestOtp(payload: PatientLoginAuth) {
+    try {
+      // TODO: populate the roles (from modules model
+      const loginRow = await PATIENT.findOne({
+        email: payload.email,
+      }); /* .populate('roles'); */
+
+      if (!loginRow) {
+        throw new ApiError(
+          `Patient with email: ${payload.email} not found`,
+          HttpStatus.Success,
+        );
+      }
+
+      const { PIN, HashedPIN } = await BcryptPassword(6)
+
+      // Update Patient with hashedPin
+      await PATIENT.updateOne(
+        { email: payload.email },
+        { $set: { otp: HashedPIN } }
+      );
+
+      return PIN
+
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async authenticatePatient(payload: PatientLoginAuth) {
+    try {
+      // TODO: populate the roles (from modules model)
+      const loginRow = await PATIENT.findOne({
+        email: payload.email,
+      }); /* .populate('roles'); */
+
+      if (!loginRow) {
+        throw new ApiError(
+          `Patient with email: ${payload.email} not found`,
+          HttpStatus.Success,
+        );
+      }
+
+      const { PIN, HashedPIN } = await BcryptPassword(6)
+
+      // TODO: abstract the string literal after the module is implemented
+      const { accessToken, refreshToken } = GenerateToken({
+        pid: loginRow.pid,
+      });
+
+      loginRow.lastLogin = new Date();
+      loginRow.token = refreshToken;
+      await loginRow.save();
+
+      const loginData = AuthSchema.getSafePatient(loginRow.toObject());
 
       return { login: loginData, token: accessToken };
     } catch (error) {

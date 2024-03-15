@@ -2,45 +2,76 @@ import { NextFunction, Request, Response } from 'express';
 
 import AppConstants from '../../../constants/app.constant';
 import ResponseHandler from '../../../handlers/response.handler';
-import { LoginAuth, MODULES_KEY } from '../../../interfaces/login.interface';
-import StudentSchema from '../../general/student/schema';
+import { LoginAuth, MODULES_KEY, PatientLoginAuth } from '../../../interfaces/login.interface';
+import PatientSchema from '../../patient/schema';
 import AuthSchema from '../schema';
+import PatientOtpTemplate from '../../../services/mail/templates/patient_otp.template';
+import { SendEmail } from '../../../services/mail';
 
-export default async function StudentLogin(
+export async function PatientLogin(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
   try {
-    const payload: LoginAuth = req.body;
+    const payload: PatientLoginAuth = req.body;
 
-    const isExistingStudentId = await StudentSchema.studentWithPropExists({
-      studentID: payload.academicId,
+    const isExistingPatientId = await PatientSchema.getPatientWithProp({
+      email: payload.email,
     });
-    if (!isExistingStudentId) {
-      return new ResponseHandler(res).failure('Student ID not found');
+    if (!isExistingPatientId) {
+      return new ResponseHandler(res).failure('Patient not Fount');
     }
 
-    const isStaffIdHasLoginRow = await AuthSchema.isExistingAcademicId(
-      payload.academicId,
-    );
-    if (!isStaffIdHasLoginRow) {
-      return new ResponseHandler(res).failure(
-        'Student ID not found, contact support for assistance',
-      );
-    }
 
-    const responseData = await AuthSchema.authenticate(
-      payload,
-      AppConstants.MODULES.PATIENT as MODULES_KEY,
+    const PIN = await AuthSchema.PatientRequestOtp(
+      payload
     );
 
-    const user = await StudentSchema.getStudentByAcademicId(payload.academicId);
+    // send user email
+    const messageTemplate = PatientOtpTemplate({
+      otp: PIN,
+    });
+
+    SendEmail({
+      email: payload.email,
+      subject: 'Swiftcare Login OTP',
+      message: messageTemplate,
+    });
+
 
     return new ResponseHandler(res).successWithData({
-      ...user._doc,
-      ...responseData,
+      ...payload
+    })
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function PatientVeirfyOtp(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const payload: PatientLoginAuth = req.body;
+
+    const isExistingPatientId = await PatientSchema.getPatientWithProp({
+      email: payload.email,
     });
+    if (!isExistingPatientId) {
+      return new ResponseHandler(res).failure('Patient not Fount');
+    }
+
+
+    await AuthSchema.authenticatePatient(
+      payload
+    );
+
+
+    return new ResponseHandler(res).successWithData({
+      ...payload
+    })
   } catch (error) {
     return next(error);
   }

@@ -1,12 +1,9 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
-
-import { logActivity } from '../middlewares/activity_log';
 import { Mail } from '../middlewares/mail';
 import { COMMUNICATION_MODULE, AUTH_MODULE } from '../modules';
 
 const router = Router();
 const app = express();
-app.use(logActivity);
 
 
 router.use('/auth', AUTH_MODULE);
