@@ -6,7 +6,7 @@ import { HttpStatus } from '../handlers/handler.util';
 import ResponseHandler from '../handlers/response.handler';
 import { MODULES_KEY } from '../interfaces/login.interface';
 import ApiError from '../utils/apiError';
-import { HAS_ROLE, VerifyToken } from '../utils/auth';
+import { VerifyToken } from '../utils/auth';
 
 
 const VerifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
@@ -83,18 +83,15 @@ export const IS_PATIENT = async (
 ) => {
   try {
     const { user } = req;
-    if (!user.roles)
+    if (!user.role)
       return new ResponseHandler(res).error(
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
     // for the array of roles which is an array of mogoose object ids which references the module collection,
     // check if any of the module slug is patient
-    const isStudent = await HAS_ROLE(
-      user.roles,
-      AppConstants.MODULES.PATIENT as MODULES_KEY,
-    );
-    if (!isStudent) {
+    const isPatient = user!.role === AppConstants.ROLES.PATIENT
+    if (!isPatient) {
       return new ResponseHandler(res).error(
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
@@ -116,10 +113,7 @@ export const IS_STAFF = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isPatient = await HAS_ROLE(
-      user.roles,
-      AppConstants.MODULES.PATIENT as MODULES_KEY,
-    );
+    const isPatient = user!.role === AppConstants.ROLES.PATIENT
 
     if (isPatient) {
       return new ResponseHandler(res).error(
@@ -144,10 +138,7 @@ export const IS_SUDO = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isLecturer = await HAS_ROLE(
-      user.roles,
-      AppConstants.MODULES.SUDO as MODULES_KEY,
-    );
+    const isLecturer = user.role === AppConstants.MODULES.SUDO
 
     if (!isLecturer) {
       return new ResponseHandler(res).error(
@@ -172,12 +163,9 @@ export const IS_DOCTOR = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isAdmin = await HAS_ROLE(
-      user.roles,
-      AppConstants.MODULES.DOCTOR as MODULES_KEY,
-    );
+    const isDoctor = user.role === AppConstants.MODULES.DOCTOR
 
-    if (!isAdmin) {
+    if (!isDoctor) {
       return new ResponseHandler(res).error(
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
@@ -200,7 +188,7 @@ export const IS_NURSE = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isNurse = await HAS_ROLE(user.roles, AppConstants.MODULES.NURSE as MODULES_KEY)
+    const isNurse = user!.role ===  AppConstants.MODULES.NURSE
 
     if (!isNurse) {
       return new ResponseHandler(res).error(

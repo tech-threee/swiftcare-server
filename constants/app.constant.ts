@@ -22,6 +22,5 @@ export default class AppConstants {
     IT: 'it',
     DOCTOR: 'doctor',
     PHARMACIST: 'pharmacist',
-    PATIENT: 'patient',
   };
 }

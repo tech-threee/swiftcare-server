@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import EnvConstants from '../constants/env.constant';
 import { MODULES_KEY, UserTokenPayload } from '../interfaces/login.interface';
-import ModuleSchema from '../modules/general/module/schema';
+// import ModuleSchema from '../modules/general/module/schema';
 
 export const GeneratePIN = (length: number = 5): string => {
   // generate random {length} digits PIN code
@@ -46,7 +46,7 @@ export const GenerateToken = (
   //   Create access token
   // console.log("JWT", EnvConstants.JWT_ACCESS_SECRET)
   const accessToken = jwt.sign(
-    { academicId: user.academicId, roles: user.roles, type: user.type },
+    { academicId: user.sid, roles: user.role, },
     EnvConstants.JWT_ACCESS_SECRET,
     {
       expiresIn: EnvConstants.JWT_ACCESS_EXPIRATION,
@@ -55,7 +55,7 @@ export const GenerateToken = (
 
   //   Create refresh token
   const refreshToken = jwt.sign(
-    { academicId: user.academicId, roles: user.roles, type: user.type },
+    { academicId: user.sid, roles: user.role, },
     EnvConstants.JWT_REFRESH_SECRET,
     {
       expiresIn: EnvConstants.JWT_REFRESH_EXPIRATION,
@@ -90,20 +90,16 @@ export const VerifyToken = async (
  * @description for the array of roles which is an array of mogoose object ids which references the module collection,
                check if any of the module slug is student
  */
-export const HAS_ROLE = async (
-  roles: mongoose.Types.ObjectId[],
-  type: MODULES_KEY,
-): Promise<boolean> => {
-  // user.type is a mongoose.Types.ObjectId which reference to the module
-  // get the module from the database and check if it is a student module
-  const isStudent = await ModuleSchema.findOne({
-    _id: { $in: roles },
-    slug: type,
-  });
+// export const HAS_ROLE = async (
+//   role: MODULES_KEY,
+// ): Promise<boolean> => {
+//   // user.type is a mongoose.Types.ObjectId which reference to the module
+//   // get the module from the database and check if it is a student module
+//   const isStudent = App
 
-  if (!isStudent) {
-    return false;
-  }
+//   if (!isStudent) {
+//     return false;
+//   }
 
-  return true;
-};
+//   return true;
+// };

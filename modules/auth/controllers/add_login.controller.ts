@@ -6,7 +6,7 @@ import { SendEmail } from '../../../services/mail';
 import NewAccountTemplate from '../../../services/mail/templates/new_account.template';
 import { BcryptPassword } from '../../../utils/auth';
 import AuthSchema from '../schema';
-import { IStudent } from '../../../interfaces/student.interface';
+import { StaffRecord } from '../../../interfaces/staff.interface';
 
 export default async function AddLogin(
   req: Request,
@@ -14,14 +14,9 @@ export default async function AddLogin(
   next: NextFunction,
 ) {
   try {
-    // @ts-expect-error
-    const payload: LoginRow = req.loginRow;
 
-    // @ts-expect-error
-    const email: string = req.email;
-
-    // @ts-expect-error
-    const name: string = req.name;
+    const payload: LoginRow = req.payload;
+    const staff: StaffRecord = req.staff
 
     const { PIN, HashedPIN } = await BcryptPassword();
 
@@ -29,13 +24,13 @@ export default async function AddLogin(
 
     // send user email
     const messageTemplate = NewAccountTemplate({
-      name,
-      email,
+      name: staff.name,
+      email: staff.email,
       pin: PIN,
     });
 
     SendEmail({
-      email,
+      email: staff.email,
       subject: 'Log In Details for Your New SwiftCare Account',
       message: messageTemplate,
     });
@@ -58,22 +53,21 @@ export async function AddBulkLogins(
       email: string;
       HashedPIN: string;
     }
-    // @ts-expect-error
-    const studentLogins: IPayload[] = req.payload;
+    const staffLogins: IPayload[] = req.payload;
 
-    for (let i = 0; i < studentLogins.length; i++) {
+    for (let i = 0; i < staffLogins.length; i++) {
       const { PIN, HashedPIN } = await BcryptPassword();
-      studentLogins[i].pin = PIN;
-      studentLogins[i].HashedPIN = HashedPIN;
+      staffLogins[i].pin = PIN;
+      staffLogins[i].HashedPIN = HashedPIN;
     }
 
-    for (let i = 0; i < studentLogins.length; i++) {
-      const { email, name, pin, HashedPIN, ...payload } = studentLogins[i];
-      await AuthSchema.add({ ...payload, pin: studentLogins[i].HashedPIN });
+    for (let i = 0; i < staffLogins.length; i++) {
+      const { email, name, pin, HashedPIN, ...payload } = staffLogins[i];
+      await AuthSchema.add({ ...payload, pin: staffLogins[i].HashedPIN });
     }
 
     // send user email
-    studentLogins.forEach((login) => {
+    staffLogins.forEach((login) => {
       const messageTemplate = NewAccountTemplate({
         name: login.name,
         email: login.email,

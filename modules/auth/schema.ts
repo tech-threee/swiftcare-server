@@ -15,11 +15,11 @@ export default class AuthSchema {
   private static async getSafe(loginRow: typeof LOGIN) {
     return { ...loginRow, pin: undefined, token: undefined };
   }
-  static async isExistingAcademicId(academicId: string) {
+  static async isExistingSid(sid: string) {
     try {
-      const isExistingAcademicId = await LOGIN.findOne({ academicId });
+      const isExistingSid = await LOGIN.findOne({ sid });
 
-      return !!isExistingAcademicId;
+      return !!isExistingSid;
     } catch (error) {
       throw error;
     }
@@ -43,7 +43,7 @@ export default class AuthSchema {
   static async updatePIN(payload: UpdateLoginRow): Promise<void> {
     try {
       await LOGIN.updateOne(
-        { academicId: payload.academicId },
+        { sid: payload.sid },
         { $set: { pin: payload.pin } },
       );
     } catch (error) {
@@ -55,12 +55,12 @@ export default class AuthSchema {
     try {
       // TODO: populate the roles (from modules model)
       const loginRow = await LOGIN.findOne({
-        academicId: payload.academicId,
+        academicId: payload.sid,
       }); /* .populate('roles'); */
 
       if (!loginRow) {
         throw new ApiError(
-          `${type} with ID: ${payload.academicId} not found`,
+          `${type} with ID: ${payload.sid} not found`,
           HttpStatus.Success,
         );
       }
@@ -72,9 +72,8 @@ export default class AuthSchema {
 
       // TODO: abstract the string literal after the module is implemented
       const { accessToken, refreshToken } = GenerateToken({
-        academicId: loginRow.academicId,
-        roles: loginRow.roles,
-        type,
+        sid: loginRow.academicId,
+        role: loginRow.role,
       });
 
       loginRow.lastLogin = new Date();
@@ -93,7 +92,7 @@ export default class AuthSchema {
     return (await LOGIN.findById(id)) as Login;
   }
 
-  static async fetchByAcademicId(academicId: string) {
-    return (await LOGIN.findOne({ academicId })) as Login;
+  static async fetchBySid(sid: string) {
+    return (await LOGIN.findOne({ sid })) as Login;
   }
 }

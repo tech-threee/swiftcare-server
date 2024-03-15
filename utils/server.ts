@@ -12,6 +12,9 @@ declare module 'express-serve-static-core' {
     course: any;
     relation: any;
     user: any;
+    payload: any;
+    staff: any
+
 
   }
 }

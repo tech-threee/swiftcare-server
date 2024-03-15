@@ -2,36 +2,35 @@ import mongoose from 'mongoose';
 import AppConstants from '../constants/app.constant';
 
 export interface Login {
-  academicId: string;
+  sid: string;
   pin: string;
-  roles: mongoose.Types.ObjectId[];
+  role: keyof typeof AppConstants.MODULES;
   lastLogin: Date;
   lastSignOut: Date;
   token: string;
 }
 
 export interface LoginRow {
-  academicId: string;
-  roles: mongoose.Types.ObjectId[];
+  sid: string;
+  role: string;
   pin: string;
 }
 
 export interface UpdateLoginRow {
-  academicId: string;
+  sid: string;
   pin: string;
 }
 
 export interface LoginAuth {
-  academicId: string;
+  sid: string;
   pin: string;
 }
 
 // export type UserTypes = 'student' | 'lecturer' | 'staff'
 
 export interface UserTokenPayload {
-  academicId: string;
-  roles: mongoose.Types.ObjectId[];
-  type: MODULES_KEY;
+  sid: string;
+  role: MODULES_KEY;
 }
 
 export type MODULES_KEY = keyof typeof AppConstants.MODULES;
