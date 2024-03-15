@@ -16,10 +16,12 @@ const PatientSchema = new mongoose.Schema<IPatientSchema>(
         email: {
             type: String,
             required: true,
+            unique: true
         },
         phone: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         dob: String,
         emergency_contacts: [
