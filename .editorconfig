@@ -1,0 +1,19 @@
+# Top-most EditorConfig file
+root = true
+
+# Set the default character encoding
+[*]
+charset = utf-8
+
+# Indentation and spacing settings for all files
+[*]
+indent_style = space
+indent_size = 2
+
+# For JavaScript and TypeScript files
+[*.js]
+indent_size = 2
+
+[*.ts]
+indent_size = 2
+

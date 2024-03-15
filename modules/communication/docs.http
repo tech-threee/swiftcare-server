@@ -1,0 +1,41 @@
+@BASE_URL=http://localhost:5000
+@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2FkZW1pY0lkIjoiMTA4OTkwMDAiLCJyb2xlcyI6WyI2NTczMjU4YmNiYjYzNWFjNGJiNDMxZDUiXSwidHlwZSI6InN0dWRlbnQiLCJpYXQiOjE3MDg2MzU2MzEsImV4cCI6MTcwODYzNzQzMX0.kKsb1iQA5Lw9lJZcJ7v4AVUNlw1H9lJGv0w0Gt_OPhM
+
+
+### Initiate a communication
+POST {{BASE_URL}}/api/v1/communication/
+Authorization: Bearer {{JWT}}
+Content-Type: application/json
+
+{
+  "recipients": [
+    {
+      "email": "work.davidmainoo@gmail.com", 
+      "participantId": "657e4b3c3f21d14faa4ed47a", 
+      "userType": "student"
+    }
+  ],
+  "text": "Hello"
+}
+
+
+### List the communications that this user has initiated
+GET {{BASE_URL}}/api/v1/communication/
+Authorization: Bearer {{JWT}}
+Content-Type: application/json
+
+
+### Read a communication
+GET {{BASE_URL}}/api/v1/communication/65d7b21f1b06875bf4e447af
+Authorization: Bearer {{JWT}}
+Content-Type: application/json
+
+
+### Add a reply to a communication
+POST {{BASE_URL}}/api/v1/communication/65d7b21f1b06875bf4e447af
+Authorization: Bearer {{JWT}}
+Content-Type: application/json
+
+{
+  "text": "Hi"
+}
