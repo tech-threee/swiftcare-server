@@ -41,7 +41,7 @@ export default async function StaffLogin(
 
     // send user email
     const messageTemplate = LoggedInEmailTemplate({
-      name: user.surname,
+      name: user.name,
       ip:
         req.headers['x-forwarded-for']?.toString() ??
         req.connection.remoteAddress,

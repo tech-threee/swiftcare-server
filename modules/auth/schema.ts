@@ -134,7 +134,10 @@ export default class AuthSchema {
         );
       }
 
-      const { PIN, HashedPIN } = await BcryptPassword(6)
+      const isAuthenticPin = await ComparePassword(payload.otp, loginRow.otp);
+      if (!isAuthenticPin) {
+        throw new ApiError(`Invalid pin`, HttpStatus.Success);
+      }
 
       // TODO: abstract the string literal after the module is implemented
       const { accessToken, refreshToken } = GenerateToken({
@@ -145,7 +148,7 @@ export default class AuthSchema {
       loginRow.token = refreshToken;
       await loginRow.save();
 
-      const loginData = AuthSchema.getSafePatient(loginRow.toObject());
+      const loginData = await AuthSchema.getSafePatient(loginRow.toObject());
 
       return { login: loginData, token: accessToken };
     } catch (error) {
