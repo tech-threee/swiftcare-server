@@ -13,9 +13,7 @@ declare module 'express-serve-static-core' {
     relation: any;
     user: any;
     payload: any;
-    staff: any
-
-
+    staff: any;
   }
 }
 

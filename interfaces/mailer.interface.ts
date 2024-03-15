@@ -8,5 +8,5 @@ export interface MailerData {
     name: string;
     email: string;
   };
-  noReply?: boolean
+  noReply?: boolean;
 }

@@ -8,7 +8,6 @@ import { MODULES_KEY } from '../interfaces/login.interface';
 import ApiError from '../utils/apiError';
 import { VerifyToken } from '../utils/auth';
 
-
 const VerifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
   const { user } = req;
   try {
@@ -90,7 +89,7 @@ export const IS_PATIENT = async (
 
     // for the array of roles which is an array of mogoose object ids which references the module collection,
     // check if any of the module slug is patient
-    const isPatient = user!.role === AppConstants.ROLES.PATIENT
+    const isPatient = user!.role === AppConstants.ROLES.PATIENT;
     if (!isPatient) {
       return new ResponseHandler(res).error(
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
@@ -113,7 +112,7 @@ export const IS_STAFF = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isPatient = user!.role === AppConstants.ROLES.PATIENT
+    const isPatient = user!.role === AppConstants.ROLES.PATIENT;
 
     if (isPatient) {
       return new ResponseHandler(res).error(
@@ -138,7 +137,7 @@ export const IS_SUDO = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isLecturer = user.role === AppConstants.MODULES.SUDO
+    const isLecturer = user.role === AppConstants.MODULES.SUDO;
 
     if (!isLecturer) {
       return new ResponseHandler(res).error(
@@ -163,7 +162,7 @@ export const IS_DOCTOR = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isDoctor = user.role === AppConstants.MODULES.DOCTOR
+    const isDoctor = user.role === AppConstants.MODULES.DOCTOR;
 
     if (!isDoctor) {
       return new ResponseHandler(res).error(
@@ -188,7 +187,7 @@ export const IS_NURSE = async (
         new ApiError('Forbidden Access', HttpStatus.Forbidden),
       );
 
-    const isNurse = user!.role ===  AppConstants.MODULES.NURSE
+    const isNurse = user!.role === AppConstants.MODULES.NURSE;
 
     if (!isNurse) {
       return new ResponseHandler(res).error(

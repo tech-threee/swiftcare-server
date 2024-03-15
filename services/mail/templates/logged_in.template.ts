@@ -23,10 +23,12 @@ export default (payload: {
       <ul>
       <li><strong>Date and Time:</strong> ${new Date().toString()}</li>
       <li><strong>IP Address:</strong> ${payload.ip ?? 'IP not found'}</li>
-      <li><strong>Device:</strong> ${payload.device ?? 'Device information not found'
-    }</li>
-      <li><strong>Location:</strong>  ${payload.location ?? 'Location not found'
-    }</li>
+      <li><strong>Device:</strong> ${
+        payload.device ?? 'Device information not found'
+      }</li>
+      <li><strong>Location:</strong>  ${
+        payload.location ?? 'Location not found'
+      }</li>
       </ul>
       <p>Thank you for using our services!</p>
       <p>Best regards,<br>SwiftCare</p>

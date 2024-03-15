@@ -14,9 +14,8 @@ export default async function AddLogin(
   next: NextFunction,
 ) {
   try {
-
     const payload: LoginRow = req.payload;
-    const staff: StaffRecord = req.staff
+    const staff: StaffRecord = req.staff;
 
     const { PIN, HashedPIN } = await BcryptPassword();
 

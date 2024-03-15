@@ -6,7 +6,11 @@ import {
   PatientLoginAuth,
   UpdateLoginRow,
 } from '../../interfaces/login.interface';
-import { BcryptPassword, ComparePassword, GenerateToken } from '../../utils/auth';
+import {
+  BcryptPassword,
+  ComparePassword,
+  GenerateToken,
+} from '../../utils/auth';
 import mongoose from 'mongoose';
 import { HttpStatus } from '../../handlers/handler.util';
 import { LOGIN, PATIENT } from '../../models';
@@ -17,7 +21,7 @@ export default class AuthSchema {
     return { ...loginRow, pin: undefined, token: undefined };
   }
   private static async getSafePatient(loginRow: typeof PATIENT) {
-    return { ...loginRow, otp: null, token: null }
+    return { ...loginRow, otp: null, token: null };
   }
   static async isExistingSid(sid: string) {
     try {
@@ -106,16 +110,15 @@ export default class AuthSchema {
         );
       }
 
-      const { PIN, HashedPIN } = await BcryptPassword(6)
+      const { PIN, HashedPIN } = await BcryptPassword(6);
 
       // Update Patient with hashedPin
       await PATIENT.updateOne(
         { email: payload.email },
-        { $set: { otp: HashedPIN } }
+        { $set: { otp: HashedPIN } },
       );
 
-      return PIN
-
+      return PIN;
     } catch (error) {
       throw error;
     }

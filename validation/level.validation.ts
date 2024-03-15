@@ -6,8 +6,7 @@ const LevelValidation = {
   }),
   update: Joi.object().keys({
     title: Joi.string(),
-
   }),
-}
+};
 
 export default LevelValidation;

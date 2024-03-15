@@ -1,13 +1,16 @@
 import { Router } from 'express';
 
 import StaffLogin from './controllers/staff_login.controller';
-import { PatientLogin, PatientVeirfyOtp } from './controllers/patient_login.controller';
+import {
+  PatientLogin,
+  PatientVeirfyOtp,
+} from './controllers/patient_login.controller';
 
 const router = Router();
 
 router.post('/staff', StaffLogin);
 router.post('/patient', PatientLogin);
-router.post('/patient/verify-otp', PatientVeirfyOtp)
+router.post('/patient/verify-otp', PatientVeirfyOtp);
 
 // TODO: ADD Refresh token route
 // TODO: Verify token route

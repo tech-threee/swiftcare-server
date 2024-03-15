@@ -1,58 +1,47 @@
-import { EmergencyContact } from ".";
+import { EmergencyContact } from '.';
 import mongoose from 'mongoose';
 export interface IPatient {
-    name: string;
-    email: string;
-    dob: string;
-    phone: string;
-    pid: string;
-    emergency_contacts: EmergencyContact[] | null;
-    weight?: string
+  name: string;
+  email: string;
+  dob: string;
+  phone: string;
+  pid: string;
+  emergency_contacts: EmergencyContact[] | null;
+  weight?: string;
 }
 
-
 export interface MedicalRecord {
-    rid: string
-    patient: string;
-    known_medical_conditions?: string[]
-    allergies?: string[]
-    physician_informations: PhysicianInformation[]
-
+  rid: string;
+  patient: string;
+  known_medical_conditions?: string[];
+  allergies?: string[];
+  physician_informations: PhysicianInformation[];
 }
 
 export interface PhysicianInformation {
-    doctor: string;
-    notes: string
+  doctor: string;
+  notes: string;
 }
 
-export interface InsuranceInformation {
-}
-
+export interface InsuranceInformation {}
 
 export interface IPatientSchema extends IPatient, mongoose.Document {
-    _id: mongoose.Types.ObjectId;
-    createdAt: string;
-    updatedAt: string;
+  _id: mongoose.Types.ObjectId;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface IStudentModel extends mongoose.Model<IPatientSchema> { }
+export interface IStudentModel extends mongoose.Model<IPatientSchema> {}
 
 export interface IPatientFilter
-    extends mongoose.FilterQuery<
-        Partial<
-            Pick<
-                IPatient,
-                'email' | 'name' | 'phone' | 'pid'
-            >
-        >
-    > { }
+  extends mongoose.FilterQuery<
+    Partial<Pick<IPatient, 'email' | 'name' | 'phone' | 'pid'>>
+  > {}
 
 export interface IPatientUpdateParam
-    extends Partial<
-        Pick<IPatient, 'name' | 'email' | 'phone'>
-    > { }
+  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone'>> {}
 
 export interface IPaginationParam {
-    limit: number;
-    skip: number;
+  limit: number;
+  skip: number;
 }

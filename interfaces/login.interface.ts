@@ -28,7 +28,7 @@ export interface LoginAuth {
 
 export interface PatientLoginAuth {
   email: string;
-  otp: string
+  otp: string;
 }
 
 // export type UserTypes = 'student' | 'lecturer' | 'staff'
@@ -36,11 +36,11 @@ export interface PatientLoginAuth {
 export interface UserTokenPayload {
   sid?: string;
   role?: MODULES_KEY;
-  pid?: string
+  pid?: string;
 }
 
 export interface PatientTokenPayload {
-  pid: string
+  pid: string;
 }
 
 export type MODULES_KEY = keyof typeof AppConstants.MODULES;

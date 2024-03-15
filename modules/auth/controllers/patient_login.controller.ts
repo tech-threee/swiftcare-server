@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import LoggedInEmailTemplate from '../../../services/mail/templates/logged_in.template';
 import ResponseHandler from '../../../handlers/response.handler';
-import { LoginAuth, MODULES_KEY, PatientLoginAuth } from '../../../interfaces/login.interface';
+import {
+  LoginAuth,
+  MODULES_KEY,
+  PatientLoginAuth,
+} from '../../../interfaces/login.interface';
 import PatientSchema from '../../patient/schema';
 import AuthSchema from '../schema';
 import PatientOtpTemplate from '../../../services/mail/templates/patient_otp.template';
@@ -22,10 +26,7 @@ export async function PatientLogin(
       return new ResponseHandler(res).failure('Patient not Fount');
     }
 
-
-    const PIN = await AuthSchema.PatientRequestOtp(
-      payload
-    );
+    const PIN = await AuthSchema.PatientRequestOtp(payload);
 
     // send user email
     const messageTemplate = PatientOtpTemplate({
@@ -38,10 +39,9 @@ export async function PatientLogin(
       message: messageTemplate,
     });
 
-
     return new ResponseHandler(res).successWithData({
-      ...payload
-    })
+      ...payload,
+    });
   } catch (error) {
     return next(error);
   }
@@ -50,7 +50,7 @@ export async function PatientLogin(
 export async function PatientVeirfyOtp(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const payload: PatientLoginAuth = req.body;
@@ -62,10 +62,7 @@ export async function PatientVeirfyOtp(
       return new ResponseHandler(res).failure('Patient not Fount');
     }
 
-
-    const { login, token } = await AuthSchema.authenticatePatient(
-      payload
-    );
+    const { login, token } = await AuthSchema.authenticatePatient(payload);
 
     // send user email
     const messageTemplate = LoggedInEmailTemplate({
@@ -83,12 +80,11 @@ export async function PatientVeirfyOtp(
       message: messageTemplate,
     });
 
-
     return new ResponseHandler(res).successWithData({
       ...isExistingPatientId,
       token,
-      otp: null
-    })
+      otp: null,
+    });
   } catch (error) {
     return next(error);
   }

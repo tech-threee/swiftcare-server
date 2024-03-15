@@ -11,10 +11,9 @@ export interface SearchWithPagination extends Pagination {
   query: string;
 }
 
-
 export interface EmergencyContact {
   name: string;
   relationship: string;
   phone: string;
-  email?: string
+  email?: string;
 }

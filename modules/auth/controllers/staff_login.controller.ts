@@ -16,16 +16,12 @@ export default async function StaffLogin(
   try {
     const payload: LoginAuth = req.body;
 
-    const isExistingStaffId = await StaffSchema.isExistingStaffID(
-      payload.sid,
-    );
+    const isExistingStaffId = await StaffSchema.isExistingStaffID(payload.sid);
     if (!isExistingStaffId) {
       return new ResponseHandler(res).failure('Staff ID not found');
     }
 
-    const isStaffIdHasLoginRow = await AuthSchema.isExistingSid(
-      payload.sid,
-    );
+    const isStaffIdHasLoginRow = await AuthSchema.isExistingSid(payload.sid);
     if (!isStaffIdHasLoginRow) {
       return new ResponseHandler(res).failure(
         'Staff ID not found, contact support for assistance',

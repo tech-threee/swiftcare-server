@@ -70,7 +70,6 @@ export const GetStudentFullName = (
   );
 };
 
-
 export const generateRandomHexColor = (): string => {
   const getRandomHexDigit = () => Math.floor(Math.random() * 16).toString(16);
 

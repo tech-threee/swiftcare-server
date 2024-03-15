@@ -1,7 +1,7 @@
 // TODO: What can be done on the support team's contact
 // TODO: provide the login or update password url page
 export default (payload: { otp: string }) => {
-    return `
+  return `
     <!DOCTYPE html>
       <html lang="en">
       <head>

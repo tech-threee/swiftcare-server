@@ -5,7 +5,6 @@ import { COMMUNICATION_MODULE, AUTH_MODULE } from '../modules';
 const router = Router();
 const app = express();
 
-
 router.use('/auth', AUTH_MODULE);
 router.use('/communication', COMMUNICATION_MODULE);
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
