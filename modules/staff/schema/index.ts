@@ -35,17 +35,17 @@ export default class StaffSchema {
 
     static async fetchSingleById(id: mongoose.Types.ObjectId) {
         try {
-            return await STAFF.findById(id).populate('projectArea.projectAreaId');
+            return await STAFF.findById(id);
         } catch (error) {
             throw error;
         }
     }
 
-    static async fetchByAcademicId(payload: string) {
+    static async fetchBySid(payload: string) {
         try {
             return await STAFF.findOne({
-                staffID: payload,
-            }).populate('projectArea.projectAreaId');
+                sid: payload,
+            });
         } catch (error) {
             throw error;
         }
@@ -58,7 +58,7 @@ export default class StaffSchema {
                 .skip((payload.skip - 1) * payload.limit)
                 .limit(payload.limit)
                 .sort({ createdAt: 'desc' })
-                .populate('projectArea.projectAreaId')
+                
                 .exec();
 
             return {
@@ -92,7 +92,7 @@ export default class StaffSchema {
                 .skip((payload.skip - 1) * payload.limit)
                 .limit(payload.limit)
                 .sort({ createdAt: 'desc' })
-                .populate('projectArea.projectAreaId')
+                
                 .exec();
 
             return {
@@ -162,7 +162,7 @@ export default class StaffSchema {
     static async isExistingStaffID(staffID: string) {
         try {
             return StaffSchema.isExistingField({
-                field: 'staffID',
+                field: 'sid',
                 value: staffID,
             });
         } catch (error) {

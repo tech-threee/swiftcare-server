@@ -55,7 +55,7 @@ export default class AuthSchema {
     try {
       // TODO: populate the roles (from modules model)
       const loginRow = await LOGIN.findOne({
-        academicId: payload.sid,
+        sid: payload.sid,
       }); /* .populate('roles'); */
 
       if (!loginRow) {
