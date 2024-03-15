@@ -5,8 +5,8 @@ export interface IPatient {
   email: string;
   dob: string;
   phone: string;
-  pid: string;
-  emergency_contacts: EmergencyContact[] | null;
+  pid?: string;
+  emergency_contacts?: EmergencyContact[] | null;
   weight?: string;
 }
 
@@ -23,23 +23,24 @@ export interface PhysicianInformation {
   notes: string;
 }
 
-export interface InsuranceInformation {}
+export interface InsuranceInformation { }
 
 export interface IPatientSchema extends IPatient, mongoose.Document {
   _id: mongoose.Types.ObjectId;
   createdAt: string;
   updatedAt: string;
+  token: string
 }
 
-export interface IStudentModel extends mongoose.Model<IPatientSchema> {}
+export interface IStudentModel extends mongoose.Model<IPatientSchema> { }
 
 export interface IPatientFilter
   extends mongoose.FilterQuery<
     Partial<Pick<IPatient, 'email' | 'name' | 'phone' | 'pid'>>
-  > {}
+  > { }
 
 export interface IPatientUpdateParam
-  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone'>> {}
+  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone'>> { }
 
 export interface IPaginationParam {
   limit: number;

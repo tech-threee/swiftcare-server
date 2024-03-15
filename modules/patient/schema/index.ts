@@ -10,10 +10,15 @@ import {
 import { PATIENT } from '../../../models';
 import ApiError from '../../../utils/apiError';
 
-export default class StudentSchema {
+export default class PatientSchema {
   // Add Student
   static async addSingle(patient: IPatient): Promise<IPatientSchema> {
-    return await PATIENT.create(patient);
+    try {
+      return await PATIENT.create(patient);
+    } catch (error) {
+      console.log(">>>>>>>>>>>>", error)
+      throw new ApiError("Add patient failed")
+    }
   }
 
   static async addBulk(patients: IPatient[]): Promise<IPatientSchema[]> {
