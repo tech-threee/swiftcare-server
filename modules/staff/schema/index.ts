@@ -24,6 +24,19 @@ export default class StaffSchema {
       throw error;
     }
   }
+  static async fetchByRoleWithoutpagination(
+    payload: FindStaffWhere,
+  ) {
+    try {
+      const staff = await STAFF.find({
+        [payload.field]: payload.value,
+      });
+
+      return staff;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   static async addSingle(payload: IStaff) {
     try {
@@ -49,6 +62,14 @@ export default class StaffSchema {
       });
     } catch (error) {
       throw error;
+    }
+  }
+
+  static async fetchAllWithoutpagination() {
+    try {
+      return await STAFF.find({})
+    } catch (error) {
+      throw error
     }
   }
 

@@ -18,7 +18,7 @@ const CommunicationRules = {
     // there is no need to get the sender since the sender is the one
     // making the request so, we will extract (or create) the sender
     // details from the jwt used to make the request
-    recipients: Joi.array().items(Participant).required(),
+    // recipients: Joi.array().items(Participant).required(),
     text: Joi.string().required(),
   }),
   readOne: Joi.object().keys({

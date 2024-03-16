@@ -23,4 +23,23 @@ export default class AppConstants {
     DOCTOR: 'doctor',
     PHARMACIST: 'pharmacist',
   };
+
+  static readonly SPECIALITIES = {
+    SURGEON: "surgery",
+    DENTIST: "dental_problem",
+    GENERAL_PRACTITIONER: "regular_checkup",
+    OBSTETRICIAN: "manternity",
+    PEDIATRICIAN: "children",
+    LAB_TECHNICIAN: "lab"
+  };
+
+  static readonly BOOKING_STATUSES = {
+    PENDING: "pending",
+    APPROVED: "approved",
+    DECLINED: "declined",
+    ONGOING: "ongoing",
+    RESCHEDULED: "rescheduled",
+    COMPLETED: "completed"
+  }
 }
+

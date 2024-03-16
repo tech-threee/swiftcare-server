@@ -52,6 +52,14 @@ export default class PatientSchema {
     await PATIENT.deleteMany({ _id: { $in: patientFilters } });
   }
 
+
+  static async fetchAllWithoutpagination() {
+    try {
+      return await PATIENT.find({})
+    } catch (error) {
+      throw error
+    }
+  }
   // Fetch ~ All -- with pagination
   static async getAllPatients(pageParam: IPaginationParam) {
     const totalPatients = await PATIENT.countDocuments({});

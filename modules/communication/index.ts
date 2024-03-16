@@ -4,7 +4,7 @@ import AppConstants from '../../constants/app.constant';
 import { IS_LOGGEDIN } from '../../middlewares/auth';
 import CommunicationRules from '../../validation/communication.rules';
 import ValidationMiddleware from '../../validation/validation.middleware';
-import CreateCommunication from './controllers/create.controller';
+import CreateCommunication, { CreateAllPatientsCommunique, CreateSomeStaffCommunique } from './controllers/create.controller';
 import ReadBulkCommunications from './controllers/read_bulk.controller';
 import ReadOneCommunication from './controllers/read_one.controller';
 import ReplyCommunication from './controllers/reply.controller';
@@ -24,6 +24,9 @@ router.post(
     ),
     CreateCommunication,
 );
+
+router.post("/staff", IS_LOGGEDIN, CreateSomeStaffCommunique)
+router.post("/patients", IS_LOGGEDIN, CreateAllPatientsCommunique)
 
 // list the communications that this user has initiated
 router.get('/', IS_LOGGEDIN, ReadBulkCommunications);
