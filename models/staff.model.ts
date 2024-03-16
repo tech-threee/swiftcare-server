@@ -33,7 +33,9 @@ const StaffSchema = new mongoose.Schema<IStaffSchema>(
     token: String,
     specialty: String,
     role: {
+      type: String,
       enum: Object.keys(AppConstants.MODULES),
+      default: null
     },
     pin: String,
   },
