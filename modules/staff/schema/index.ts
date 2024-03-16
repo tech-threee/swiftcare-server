@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { HttpStatus } from '../../../handlers/handler.util';
 import {
   FindStaffWhere,
-  Lecturer,
+  IStaff,
   Pagination,
   SearchWithPagination,
 } from '../../../interfaces/staff.interface';
@@ -25,7 +25,7 @@ export default class StaffSchema {
     }
   }
 
-  static async addSingle(payload: Lecturer) {
+  static async addSingle(payload: IStaff) {
     try {
       await STAFF.create({ ...payload });
     } catch (error) {
@@ -53,8 +53,8 @@ export default class StaffSchema {
 
   static async fetchPaginatedBulk(payload: Pagination) {
     try {
-      const totalLecturers = await STAFF.countDocuments();
-      const lecturers = await STAFF.find()
+      const totalStaff = await STAFF.countDocuments();
+      const staff = await STAFF.find()
         .skip((payload.skip - 1) * payload.limit)
         .limit(payload.limit)
         .sort({ createdAt: 'desc' })
@@ -62,8 +62,8 @@ export default class StaffSchema {
         .exec();
 
       return {
-        lecturers,
-        totalLecturers,
+        staff,
+        totalStaff,
       };
     } catch (error) {
       throw error;
@@ -76,19 +76,18 @@ export default class StaffSchema {
 
       const filter = {
         $or: [
-          { title: { $regex: caseInsensitiveRegex } },
-          { surname: { $regex: caseInsensitiveRegex } },
-          { otherNames: { $regex: caseInsensitiveRegex } },
-          { staffID: { $regex: caseInsensitiveRegex } },
+          { dob: { $regex: caseInsensitiveRegex } },
+          { name: { $regex: caseInsensitiveRegex } },
+          { specialty: { $regex: caseInsensitiveRegex } },
+          { role: { $regex: caseInsensitiveRegex } },
           { email: { $regex: caseInsensitiveRegex } },
           { phone: { $regex: caseInsensitiveRegex } },
-          { officeHours: { $regex: caseInsensitiveRegex } },
-          { officeLocation: { $regex: caseInsensitiveRegex } },
+          { pid: { $regex: caseInsensitiveRegex } },
         ],
       };
 
-      const totalLecturers = await STAFF.countDocuments(filter);
-      const lecturers = await STAFF.find(filter)
+      const totalStaff = await STAFF.countDocuments(filter);
+      const staff = await STAFF.find(filter)
         .skip((payload.skip - 1) * payload.limit)
         .limit(payload.limit)
         .sort({ createdAt: 'desc' })
@@ -96,15 +95,15 @@ export default class StaffSchema {
         .exec();
 
       return {
-        lecturers,
-        totalLecturers,
+        staff,
+        totalStaff,
       };
     } catch (error) {
       throw error;
     }
   }
 
-  static async updateById(id: mongoose.Types.ObjectId, payload: Lecturer) {
+  static async updateById(id: mongoose.Types.ObjectId, payload: IStaff) {
     try {
       let staff = await STAFF.findById(id);
 

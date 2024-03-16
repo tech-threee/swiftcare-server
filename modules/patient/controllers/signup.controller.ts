@@ -12,7 +12,7 @@ export const Signup = async (req: Request, res: Response, next: NextFunction) =>
         const pid = new Date().getTime().toString()
 
         const patientWithPhoneExist = await PatientSchema.patientWithPropExists({ phone: payload.phone })
-        const patientWithEmailExist = await PatientSchema.patientWithPropExists({ phone: payload.phone })
+        const patientWithEmailExist = await PatientSchema.patientWithPropExists({ email: payload.email })
 
         if (patientWithEmailExist || patientWithPhoneExist) return next(new ApiError("Patient Already Exist"))
 

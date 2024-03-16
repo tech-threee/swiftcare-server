@@ -44,9 +44,8 @@ export const GenerateToken = (
   user: UserTokenPayload,
 ): { accessToken: string; refreshToken: string } => {
   //   Create access token
-  // console.log("JWT", EnvConstants.JWT_ACCESS_SECRET)
   const accessToken = jwt.sign(
-    { id: user.pid ?? user.sid, roles: user?.role || 'student' },
+    { id: user.id, _id: user._id, roles: user.role || 'PATIENT' },
     EnvConstants.JWT_ACCESS_SECRET,
     {
       expiresIn: EnvConstants.JWT_ACCESS_EXPIRATION,
@@ -55,7 +54,7 @@ export const GenerateToken = (
 
   //   Create refresh token
   const refreshToken = jwt.sign(
-    { id: user.pid ?? user.sid, roles: user?.role || 'student' },
+    { id: user.id, _id: user._id, roles: user?.role || 'PATIENT' },
     EnvConstants.JWT_REFRESH_SECRET,
     {
       expiresIn: EnvConstants.JWT_REFRESH_EXPIRATION,

@@ -1,8 +1,6 @@
 import {
   Login,
   LoginAuth,
-  LoginRow,
-  MODULES_KEY,
   PatientLoginAuth,
   UpdateLoginRow,
 } from '../../interfaces/login.interface';
@@ -13,11 +11,11 @@ import {
 } from '../../utils/auth';
 import mongoose from 'mongoose';
 import { HttpStatus } from '../../handlers/handler.util';
-import { LOGIN, PATIENT } from '../../models';
+import { STAFF, PATIENT } from '../../models';
 import ApiError from '../../utils/apiError';
 
 export default class AuthSchema {
-  private static async getSafe(loginRow: typeof LOGIN) {
+  private static async getSafeStaff(loginRow: typeof STAFF) {
     return { ...loginRow, pin: undefined, token: undefined };
   }
   private static async getSafePatient(loginRow: typeof PATIENT) {
@@ -25,7 +23,7 @@ export default class AuthSchema {
   }
   static async isExistingSid(sid: string) {
     try {
-      const isExistingSid = await LOGIN.findOne({ sid });
+      const isExistingSid = await STAFF.findOne({ sid });
 
       return !!isExistingSid;
     } catch (error) {
@@ -33,42 +31,16 @@ export default class AuthSchema {
     }
   }
 
-  static async add(payload: LoginRow) {
-    try {
-      await LOGIN.create({ ...payload });
-    } catch (error) {
-      throw error;
-    }
-  }
-  static async addBulk(payload: LoginRow[]) {
-    try {
-      await LOGIN.create(payload);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async updatePIN(payload: UpdateLoginRow): Promise<void> {
-    try {
-      await LOGIN.updateOne(
-        { sid: payload.sid },
-        { $set: { pin: payload.pin } },
-      );
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async authenticate(payload: LoginAuth, type: MODULES_KEY) {
+  static async authenticateStaff(payload: LoginAuth) {
     try {
       // TODO: populate the roles (from modules model)
-      const loginRow = await LOGIN.findOne({
+      const loginRow = await STAFF.findOne({
         sid: payload.sid,
       }); /* .populate('roles'); */
 
       if (!loginRow) {
         throw new ApiError(
-          `${type} with ID: ${payload.sid} not found`,
+          `STAFF with ID: ${payload.sid} not found`,
           HttpStatus.Success,
         );
       }
@@ -80,15 +52,16 @@ export default class AuthSchema {
 
       // TODO: abstract the string literal after the module is implemented
       const { accessToken, refreshToken } = GenerateToken({
-        sid: loginRow.academicId,
+        id: loginRow.sid,
         role: loginRow.role,
+        _id: loginRow._id
       });
 
-      loginRow.lastLogin = new Date();
+      // loginRow.lastLogin = new Date();
       loginRow.token = refreshToken;
       await loginRow.save();
 
-      const loginData = AuthSchema.getSafe(loginRow.toObject());
+      const loginData = AuthSchema.getSafeStaff(loginRow.toObject());
 
       return { login: loginData, token: accessToken };
     } catch (error) {
@@ -144,7 +117,8 @@ export default class AuthSchema {
 
       // TODO: abstract the string literal after the module is implemented
       const { accessToken, refreshToken } = GenerateToken({
-        pid: loginRow.pid,
+        id: loginRow.pid,
+        _id: loginRow._id
       });
 
       loginRow.lastLogin = new Date();
@@ -159,11 +133,19 @@ export default class AuthSchema {
     }
   }
 
-  static async fetchById(id: mongoose.Types.ObjectId) {
-    return (await LOGIN.findById(id)) as Login;
+  static async fetchByStaffId(id: mongoose.Types.ObjectId) {
+    return (await STAFF.findById(id)) as Login;
   }
 
-  static async fetchBySid(sid: string) {
-    return (await LOGIN.findOne({ sid })) as Login;
+  static async fetchByStaffSid(sid: string) {
+    return (await STAFF.findOne({ sid })) as Login;
   }
+  static async fetchByPatientId(id: mongoose.Types.ObjectId) {
+    return (await PATIENT.findById(id)) as Login;
+  }
+
+  static async fetchByPatientPid(sid: string) {
+    return (await PATIENT.findOne({ sid })) as Login;
+  }
+
 }

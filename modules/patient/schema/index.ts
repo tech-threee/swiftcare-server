@@ -9,6 +9,7 @@ import {
 } from '../../../interfaces/patient.interface';
 import { PATIENT } from '../../../models';
 import ApiError from '../../../utils/apiError';
+import { Pagination, SearchWithPagination } from '../../../interfaces';
 
 export default class PatientSchema {
   // Add Student
@@ -26,7 +27,7 @@ export default class PatientSchema {
   }
 
   // Update student
-  static async updateStudentByID(
+  static async updateByID(
     id: mongoose.Types.ObjectId,
     update: IPatientUpdateParam,
   ) {
@@ -66,6 +67,14 @@ export default class PatientSchema {
   // Fetch ~ Single
   static async getPatientByID(id: mongoose.Types.ObjectId) {
     return await PATIENT.findById(id);
+  }
+
+  static async fetchSingleById(id: mongoose.Types.ObjectId) {
+    try {
+      return await PATIENT.findById(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   /* 
@@ -116,6 +125,55 @@ export default class PatientSchema {
       /* .populate('program')*/
 
       return res;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async fetchPaginatedBulk(payload: Pagination) {
+    try {
+      const totalStaff = await PATIENT.countDocuments();
+      const staff = await PATIENT.find()
+        .skip((payload.skip - 1) * payload.limit)
+        .limit(payload.limit)
+        .sort({ createdAt: 'desc' })
+
+        .exec();
+
+      return {
+        staff,
+        totalStaff,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async searchPaginated(payload: SearchWithPagination) {
+    try {
+      const caseInsensitiveRegex = new RegExp(`${payload.query}`, 'i');
+
+      const filter = {
+        $or: [
+          { dob: { $regex: caseInsensitiveRegex } },
+          { name: { $regex: caseInsensitiveRegex } },
+          { email: { $regex: caseInsensitiveRegex } },
+          { phone: { $regex: caseInsensitiveRegex } },
+          { pid: { $regex: caseInsensitiveRegex } },
+        ],
+      };
+
+      const totalStaff = await PATIENT.countDocuments(filter);
+      const staff = await PATIENT.find(filter)
+        .skip((payload.skip - 1) * payload.limit)
+        .limit(payload.limit)
+        .sort({ createdAt: 'desc' })
+
+        .exec();
+
+      return {
+        staff,
+        totalStaff,
+      };
     } catch (error) {
       throw error;
     }

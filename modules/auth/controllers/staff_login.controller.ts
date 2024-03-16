@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-
-import AppConstants from '../../../constants/app.constant';
 import ResponseHandler from '../../../handlers/response.handler';
-import { LoginAuth, MODULES_KEY } from '../../../interfaces/login.interface';
+import { LoginAuth } from '../../../interfaces/login.interface';
 import { SendEmail } from '../../../services/mail';
 import LoggedInEmailTemplate from '../../../services/mail/templates/logged_in.template';
 import StaffSchema from '../../staff/schema';
@@ -28,9 +26,8 @@ export default async function StaffLogin(
       );
     }
 
-    const responseDate = await AuthSchema.authenticate(
-      payload,
-      AppConstants.ROLES.STAFF as MODULES_KEY,
+    const responseDate = await AuthSchema.authenticateStaff(
+      payload
     );
 
     const user = await StaffSchema.fetchBySid(payload.sid);

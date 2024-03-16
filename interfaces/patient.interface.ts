@@ -8,6 +8,7 @@ export interface IPatient {
   pid?: string;
   emergency_contacts?: EmergencyContact[] | null;
   weight?: string;
+  image?:string
 }
 
 export interface MedicalRecord {
@@ -41,7 +42,7 @@ export interface IPatientFilter
   > { }
 
 export interface IPatientUpdateParam
-  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone'>> { }
+  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone' | 'image'>> { }
 
 export interface IPaginationParam {
   limit: number;

@@ -1,6 +1,6 @@
 // TODO: What can be done on the support team's contact
 // TODO: provide the login or update password url page
-export default (payload: { name: string; email: string; pin: string }) => {
+export default (payload: { name: string; sid: string; pin: string }) => {
   return `
   <!DOCTYPE html>
     <html lang="en">
@@ -16,10 +16,10 @@ export default (payload: { name: string; email: string; pin: string }) => {
       <div>
         <h1>Welcome to SwiftCare, ${payload.name}!</h1>
         <p>
-          Your SwiftCare account has been created. To get started, use the following information to log in:
+          Your SwiftCare Staff account has been created. To get started, use the following information to log in:
         </p>
         <ul>
-          <li>Email: ${payload.email}</li>
+          <li>Staff ID: ${payload.sid}</li>
           <li>Pin: ${payload.pin}</li>
         </ul>
         <p>

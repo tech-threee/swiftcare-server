@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-import { Login } from '../interfaces/login.interface';
-import AppConstants from '../constants/app.constant';
 import { IPatientSchema } from '../interfaces/patient.interface';
 const PatientSchema = new mongoose.Schema<IPatientSchema>(
     {

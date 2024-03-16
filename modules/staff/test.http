@@ -1,0 +1,15 @@
+@BASE_URL=http://localhost:1000/api/v1
+
+### Fetch Bulk Staff
+GET {{BASE_URL}}/staff
+
+### Add Staff
+POST {{BASE_URL}}/staff
+Content-Type: application/json
+
+{
+    "name": "Tech Three", 
+    "email": "techthree521@gmail.com", 
+    "phone": "0556844332",
+    "dob": "22/11/1990"
+}

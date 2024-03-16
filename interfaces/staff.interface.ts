@@ -11,7 +11,8 @@ export interface IStaff {
   role: MODULES_KEY;
   specialty: string;
   emergency_contacts?: EmergencyContact[] | null;
-  image: string
+  image: string;
+  pin: string
 }
 
 export interface FindStaffWhere {
@@ -30,7 +31,6 @@ export interface IStaffSchema extends IStaff, mongoose.Document {
   createdAt: string;
   updatedAt: string;
   token: string;
-  pin: string
 }
 
 export interface SearchWithPagination extends Pagination {

@@ -1,12 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 import AppConstants from '../constants/app.constant';
 
 export interface Login {
   sid: string;
   pin: string;
-  role: keyof typeof AppConstants.MODULES;
-  lastLogin: Date;
-  lastSignOut: Date;
+  role: MODULES_KEY;
   token: string;
 }
 
@@ -34,13 +32,10 @@ export interface PatientLoginAuth {
 // export type UserTypes = 'student' | 'lecturer' | 'staff'
 
 export interface UserTokenPayload {
-  sid?: string;
+  id: string;
+  _id: mongoose.Types.ObjectId
   role?: MODULES_KEY;
-  pid?: string;
 }
 
-export interface PatientTokenPayload {
-  pid: string;
-}
 
 export type MODULES_KEY = keyof typeof AppConstants.MODULES;

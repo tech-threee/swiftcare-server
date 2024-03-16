@@ -29,7 +29,6 @@ export const IS_LOGGEDIN = async (
   next: NextFunction,
 ) => {
   try {
-    console.log(req.body);
     const { authorization } = req.headers;
     if (!authorization) {
       return new ResponseHandler(res).error(
