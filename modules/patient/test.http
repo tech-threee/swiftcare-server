@@ -1,4 +1,4 @@
-@BASE_URL=http://localhost:8802/api/v1
+@BASE_URL=http://localhost:1000/api/v1
 
 ### SIGNUP PATIENT
 POST {{BASE_URL}}/patient
@@ -6,7 +6,25 @@ Content-Type: application/json
 
 {
     "name": "Bentil", 
-    "email": "bentilshdrack72@gmail.com", 
+    "email": "bentilshadrack72@gmail.com", 
     "phone": "0556844331",
     "dob": "22/11/1999"
+}
+
+
+### LOGIN PATIENT
+POST {{BASE_URL}}/auth/patient
+Content-Type: application/json
+
+{
+    "email": "bentilshadrack72@gmail.com"
+}
+
+### VERIFY PATIENT OTP
+POST {{BASE_URL}}/patient/verify-otp
+Content-Type: application/json
+
+{
+    "email": "bentilshadrack72@gmail.com", 
+    "otp": "389179"
 }

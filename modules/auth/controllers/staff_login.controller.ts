@@ -45,7 +45,7 @@ export default async function StaffLogin(
       location: '',
     });
 
-    SendEmail({
+    await SendEmail({
       email: user.email,
       subject: 'Log In Detected on Your SwiftCare Account',
       message: messageTemplate,

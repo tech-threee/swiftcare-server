@@ -16,7 +16,7 @@ export default (payload: { otp: string }) => {
         <div>
           <h1>Swiftcare Login OTP!</h1>
           <p>
-            Hello SwiftCare Connector, Your OTP is: ${payload.otp}
+            Hello SwiftCare Connector, Your OTP is: <b>${payload.otp}</b>
           </p>
 
           <p>

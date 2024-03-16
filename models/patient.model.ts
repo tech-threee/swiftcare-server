@@ -33,6 +33,10 @@ const PatientSchema = new mongoose.Schema<IPatientSchema>(
             }
         ],
         token: String,
+        otp: {
+            type: String,
+            default: null
+        }
     },
     { timestamps: true, versionKey: false },
 );

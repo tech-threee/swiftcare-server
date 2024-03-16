@@ -29,7 +29,8 @@ export interface IPatientSchema extends IPatient, mongoose.Document {
   _id: mongoose.Types.ObjectId;
   createdAt: string;
   updatedAt: string;
-  token: string
+  token: string;
+  otp: string
 }
 
 export interface IStudentModel extends mongoose.Model<IPatientSchema> { }

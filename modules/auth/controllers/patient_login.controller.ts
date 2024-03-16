@@ -74,7 +74,7 @@ export async function PatientVeirfyOtp(
       location: '',
     });
 
-    SendEmail({
+    await SendEmail({
       email: payload.email,
       subject: 'Log In Detected on Your SwiftCare Account',
       message: messageTemplate,

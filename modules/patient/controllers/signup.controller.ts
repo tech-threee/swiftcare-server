@@ -11,9 +11,10 @@ export const Signup = async (req: Request, res: Response, next: NextFunction) =>
 
         const pid = new Date().getTime().toString()
 
-        const patientExist = await PatientSchema.patientWithPropExists({ email: payload.email, phone: payload.phone })
+        const patientWithPhoneExist = await PatientSchema.patientWithPropExists({ phone: payload.phone })
+        const patientWithEmailExist = await PatientSchema.patientWithPropExists({ phone: payload.phone })
 
-        if (patientExist) return next(new ApiError("Patient Already Exist"))
+        if (patientWithEmailExist || patientWithPhoneExist) return next(new ApiError("Patient Already Exist"))
 
         const newPatient = await PatientSchema.addSingle({
             ...payload,
@@ -27,15 +28,15 @@ export const Signup = async (req: Request, res: Response, next: NextFunction) =>
             id: pid,
         });
 
-        SendEmail({
+
+        new ResponseHandler(res).successWithData(
+            newPatient
+        )
+        await SendEmail({
             email: payload.email,
             subject: 'Welcome to SwiftCare Connect',
             message: messageTemplate,
         });
-
-        return new ResponseHandler(res).successWithData(
-            newPatient
-        )
     } catch (error) {
         next(error)
     }
