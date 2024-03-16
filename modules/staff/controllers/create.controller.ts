@@ -48,6 +48,7 @@ export const CreateStaff = async (
         if (patientWithEmailExist || patientWithPhoneExist)
             return next(new ApiError('Patient Already Exist'));
 
+        console.log(">>>>>>>", payload)
         const newPatient = await StaffSchema.addSingle({
             ...payload,
             sid,

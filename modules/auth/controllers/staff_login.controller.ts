@@ -26,7 +26,7 @@ export default async function StaffLogin(
       );
     }
 
-    const responseDate = await AuthSchema.authenticateStaff(payload);
+    const responseData = await AuthSchema.authenticateStaff(payload);
 
     const user = await StaffSchema.fetchBySid(payload.sid);
 
@@ -47,8 +47,7 @@ export default async function StaffLogin(
     });
 
     return new ResponseHandler(res).successWithData({
-      responseDate,
-      user: user,
+      ...user._doc
     });
   } catch (error) {
     return next(error);

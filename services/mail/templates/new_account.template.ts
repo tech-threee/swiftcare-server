@@ -19,8 +19,8 @@ export default (payload: { name: string; sid: string; pin: string }) => {
           Your SwiftCare Staff account has been created. To get started, use the following information to log in:
         </p>
         <ul>
-          <li>Staff ID: ${payload.sid}</li>
-          <li>Pin: ${payload.pin}</li>
+          <li>Staff ID: <b>${payload.sid}</b></li>
+          <li>Pin: <b>${payload.pin}</b></li>
         </ul>
         <p>
           Click <a href="[Your Login Page URL]">here</a> to log in. Once logged in, you can change your pin in the account settings.
