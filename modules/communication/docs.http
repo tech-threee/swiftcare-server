@@ -1,20 +1,12 @@
-@BASE_URL=http://localhost:5000
-@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2FkZW1pY0lkIjoiMTA4OTkwMDAiLCJyb2xlcyI6WyI2NTczMjU4YmNiYjYzNWFjNGJiNDMxZDUiXSwidHlwZSI6InN0dWRlbnQiLCJpYXQiOjE3MDg2MzU2MzEsImV4cCI6MTcwODYzNzQzMX0.kKsb1iQA5Lw9lJZcJ7v4AVUNlw1H9lJGv0w0Gt_OPhM
-
+@BASE_URL=http://localhost:1000
+@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1OTU5OTgzNDQiLCJfaWQiOiI2NWY1OWY5ZTZjYjZjMzU2ZTU4NmZhMDgiLCJyb2xlcyI6IklUIiwiaWF0IjoxNzEwNjEyMDQ2LCJleHAiOjE3MTA2MTM4NDZ9.CfxKZ7B4HY0ohgwHvBkPYjG1Xh8O8Jn_wEwBnSEHgf4
 
 ### Initiate a communication
-POST {{BASE_URL}}/api/v1/communication/
+POST {{BASE_URL}}/api/v1/communication/staff
 Authorization: Bearer {{JWT}}
 Content-Type: application/json
 
 {
-  "recipients": [
-    {
-      "email": "work.davidmainoo@gmail.com", 
-      "participantId": "657e4b3c3f21d14faa4ed47a", 
-      "userType": "student"
-    }
-  ],
   "text": "Hello"
 }
 

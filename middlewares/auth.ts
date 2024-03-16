@@ -37,7 +37,7 @@ export const IS_LOGGEDIN = async (
     }
 
     const token = authorization.split(' ')[1];
-
+    console.log("..", token)
     if (!token) {
       return new ResponseHandler(res).error(
         new ApiError('Access Denied', HttpStatus.AccessDenied),
@@ -67,6 +67,7 @@ export const IS_LOGGEDIN = async (
 
     // append token to decoded object and set the new object to req.user
     decoded.token = token;
+    console.log({ decoded })
     req.user = decoded;
     next();
   } catch (error: any) {

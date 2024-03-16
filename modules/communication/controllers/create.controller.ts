@@ -44,7 +44,7 @@ export default async function CreateAllStaffBroadcast(
       _id: mongoose.Types.ObjectId;
       email: string;
       name: string
-    } | null = {
+    } = {
       ...loginRow
     }
 
@@ -89,7 +89,7 @@ export default async function CreateAllStaffBroadcast(
     const topic = GetTopicFromText(payload.text);
 
     const messageTemplate = newCommunicationEmailTemplate({
-      name: `${user.name}`,
+      name: `${user!.name}`,
       link: 'some-url-to-view-communication',
       topic,
     });
@@ -133,7 +133,7 @@ export async function CreateIndividualCommunique(
       _id: mongoose.Types.ObjectId;
       email: string;
       name: string
-    } | null = {
+    }  = {
       ...loginRow
     }
 
@@ -176,7 +176,7 @@ export async function CreateIndividualCommunique(
     const topic = GetTopicFromText(payload.text);
 
     const messageTemplate = newCommunicationEmailTemplate({
-      name: `${user.name}`,
+      name: `${user!.name}`,
       link: 'some-url-to-view-communication',
       topic,
     });
@@ -220,7 +220,7 @@ export async function CreateAllPatientsCommunique(
       _id: mongoose.Types.ObjectId;
       email: string;
       name: string
-    } | null = {
+    }  = {
       ...loginRow
     }
 
@@ -265,7 +265,7 @@ export async function CreateAllPatientsCommunique(
     const topic = GetTopicFromText(payload.text);
 
     const messageTemplate = newCommunicationEmailTemplate({
-      name: `${user.name}`,
+      name: `${user!.name}`,
       link: 'some-url-to-view-communication',
       topic,
     });
@@ -290,15 +290,21 @@ export async function CreateStaffCommunique(
     // get the sender's detail from the jwt (the middleware will
     // add it to req as req.user)
     const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
+
     const role = req.query.role as string
 
     // get the login row for this user and use this to fetch the appropriate
     let loginRow;
-    if (!Object.keys(AppConstants).includes(authUser.role)) {
+    // console.log("<<>>", Object.keys(AppConstants.MODULES))
+    if (!Object.keys(AppConstants.MODULES).includes(authUser.role)) {
+      console.log("isPatient")
       loginRow = await AuthSchema.fetchByPatientId(authUser._id);
     } else {
+      console.log("isStaff")
       loginRow = await AuthSchema.fetchByStaffId(authUser._id);
     }
+
+    console.log({ loginRow })
     if (!loginRow) {
       return new ResponseHandler(res).error(
         new ApiError('Action forbidden', HttpStatus.Forbidden),
@@ -310,9 +316,11 @@ export async function CreateStaffCommunique(
       _id: mongoose.Types.ObjectId;
       email: string;
       name: string
-    } | null = {
+    } = {
       ...loginRow
     }
+
+    console.log({ user })
 
 
     // compose the sender: { participantId, userType, email }
@@ -355,7 +363,7 @@ export async function CreateStaffCommunique(
     const topic = GetTopicFromText(payload.text);
 
     const messageTemplate = newCommunicationEmailTemplate({
-      name: `${user.name}`,
+      name: `${user!.name}`,
       link: 'some-url-to-view-communication',
       topic,
     });

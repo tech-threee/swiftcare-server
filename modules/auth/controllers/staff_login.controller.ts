@@ -47,7 +47,8 @@ export default async function StaffLogin(
     });
 
     return new ResponseHandler(res).successWithData({
-      ...user._doc
+      ...user._doc,
+      token: responseData.token
     });
   } catch (error) {
     return next(error);

@@ -135,17 +135,33 @@ export default class AuthSchema {
   }
 
   static async fetchByStaffId(id: mongoose.Types.ObjectId) {
-    return (await STAFF.findById(id))._doc as IStaffSchema;
+    try {
+      return await STAFF.findById(id);
+    } catch (error) {
+      throw error
+    }
   }
 
   static async fetchByStaffSid(sid: string) {
-    return (await STAFF.findOne({ sid }))._doc as IStaffSchema;
+    try {
+      return await STAFF.findOne({ sid });
+    } catch (error) {
+      throw error
+    }
   }
   static async fetchByPatientId(id: mongoose.Types.ObjectId) {
-    return (await PATIENT.findById(id))._doc as IPatientSchema;
+    try {
+      return await PATIENT.findById(id);
+    } catch (error) {
+      throw error
+    }
   }
 
   static async fetchByPatientPid(sid: string) {
-    return (await PATIENT.findOne({ sid }))._doc as IPatientSchema;
+    try {
+      return await PATIENT.findOne({ sid });
+    } catch (error) {
+      throw error
+    }
   }
 }
