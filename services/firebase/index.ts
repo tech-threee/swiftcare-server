@@ -40,7 +40,6 @@ const UploadFileToFirebaseStorage = async (
 ) => {
   try {
     // pass the data from the previous middleware to the next
-    // @ts-expect-error
     req.payload = req.payload;
 
     if (!req.file) {

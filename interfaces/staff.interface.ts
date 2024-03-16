@@ -1,4 +1,5 @@
 import { EmergencyContact } from '.';
+import mongoose from 'mongoose';
 
 export interface StaffRecord {
   name: string;
@@ -14,9 +15,7 @@ export interface DoctorInterface extends StaffRecord {
   specialization: string;
 }
 
-export interface NurseInterface extends StaffRecord {}
-
-import mongoose from 'mongoose';
+export interface NurseInterface extends StaffRecord { }
 
 interface ProjectArea {
   projectAreaId: mongoose.Types.ObjectId;

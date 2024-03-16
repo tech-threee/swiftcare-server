@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 import mongoose from 'mongoose';
-import { IStudentSchema } from '../interfaces/student.interface';
 
 export const getPaginationParams = (
   count: number,
@@ -56,18 +55,6 @@ export const EncodeBase64 = (plainString: string): string => {
 
 export const DecodeBase64 = (encodedString: string): string => {
   return Buffer.from(encodedString, 'base64').toString('utf-8');
-};
-
-export const GetStudentFullName = (
-  student: IStudentSchema,
-  addTitle: boolean = true,
-): string => {
-  return (
-    `${addTitle ? `${student.title} ` : ''}` +
-    student.otherNames +
-    ' ' +
-    student.surname
-  );
 };
 
 export const generateRandomHexColor = (): string => {
