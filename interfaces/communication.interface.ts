@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 interface Participant {
   participantId: mongoose.Types.ObjectId;
-  userType: string;
+  role: string;
   email: string;
 }
 

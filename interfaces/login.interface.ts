@@ -1,12 +1,7 @@
 import mongoose, { Mongoose } from 'mongoose';
 import AppConstants from '../constants/app.constant';
 
-export interface Login {
-  sid: string;
-  pin: string;
-  role: MODULES_KEY;
-  token: string;
-}
+
 
 export interface LoginRow {
   sid: string;

@@ -1,5 +1,4 @@
 import {
-  Login,
   LoginAuth,
   PatientLoginAuth,
   UpdateLoginRow,
@@ -13,6 +12,8 @@ import mongoose from 'mongoose';
 import { HttpStatus } from '../../handlers/handler.util';
 import { STAFF, PATIENT } from '../../models';
 import ApiError from '../../utils/apiError';
+import { IStaffSchema } from '../../interfaces/staff.interface';
+import { IPatientSchema } from '../../interfaces/patient.interface';
 
 export default class AuthSchema {
   private static async getSafeStaff(loginRow: typeof STAFF) {
@@ -134,17 +135,17 @@ export default class AuthSchema {
   }
 
   static async fetchByStaffId(id: mongoose.Types.ObjectId) {
-    return (await STAFF.findById(id)) as Login;
+    return (await STAFF.findById(id))._doc as IStaffSchema;
   }
 
   static async fetchByStaffSid(sid: string) {
-    return (await STAFF.findOne({ sid })) as Login;
+    return (await STAFF.findOne({ sid }))._doc as IStaffSchema;
   }
   static async fetchByPatientId(id: mongoose.Types.ObjectId) {
-    return (await PATIENT.findById(id)) as Login;
+    return (await PATIENT.findById(id))._doc as IPatientSchema;
   }
 
   static async fetchByPatientPid(sid: string) {
-    return (await PATIENT.findOne({ sid })) as Login;
+    return (await PATIENT.findOne({ sid }))._doc as IPatientSchema;
   }
 }

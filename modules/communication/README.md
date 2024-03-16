@@ -14,7 +14,7 @@ Content-Type: application/json
     {
       "email": "work.davidmainoo@gmail.com", 
       "participantId": "657e4b3c3f21d14faa4ed47a", 
-      "userType": "student"
+      "role": "DOCTOR"
     }
   ],
   "text": "Hello"
@@ -79,14 +79,14 @@ Content-Type: application/json
   "data": {
     "sender": {
       "participantId": "65732a52a02a656f714faf22",
-      "userType": "student",
+      "role": "DOCTOR",
       "email": "samuel398721@gmail.com"
     },
     "_id": "65d7b21f1b06875bf4e447af",
     "recipients": [
       {
         "participantId": "657e4b3c3f21d14faa4ed47a",
-        "userType": "student",
+        "role": "DOCTOR",
         "email": "work.davidmainoo@gmail.com",
         "_id": "65d7b21f1b06875bf4e447b0"
       }
