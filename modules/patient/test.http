@@ -21,10 +21,10 @@ Content-Type: application/json
 }
 
 ### VERIFY PATIENT OTP
-POST {{BASE_URL}}/patient/verify-otp
+POST {{BASE_URL}}/auth/patient/verify-otp
 Content-Type: application/json
 
 {
     "email": "bentilshadrack72@gmail.com", 
-    "otp": "389179"
+    "otp": "398164"
 }

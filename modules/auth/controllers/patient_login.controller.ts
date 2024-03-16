@@ -81,7 +81,7 @@ export async function PatientVeirfyOtp(
     });
 
     return new ResponseHandler(res).successWithData({
-      ...isExistingPatientId,
+      ...isExistingPatientId._doc,
       token,
       otp: null,
     });
