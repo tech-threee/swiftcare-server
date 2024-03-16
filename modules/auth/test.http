@@ -31,10 +31,11 @@ Content-Type: application/json
 
 
 ### Staff Login
+
 POST {{BASE_URL}}/auth/staff
 Content-Type: application/json
 
 {
-    "sid": "1710594908539", 
-    "pin": "672016"
+    "sid": "1710595998344", 
+    "pin": "853337"
 }
