@@ -290,6 +290,7 @@ export async function CreateSomeStaffCommunique(
     // get the sender's detail from the jwt (the middleware will
     // add it to req as req.user)
     const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
+    const role = req.query.role as string
 
     // get the login row for this user and use this to fetch the appropriate
     let loginRow;
@@ -325,7 +326,7 @@ export async function CreateSomeStaffCommunique(
     const payload = req.body as CreateCommunicationRequestPayload;
 
 
-    const staff = await StaffSchema.fetchByRoleWithoutpagination({ field: "role", value: req.body.category })
+    const staff = await StaffSchema.fetchByRoleWithoutpagination({ field: "role", value: role })
     // create a communication row
     const communication = await CommunicationSchema.create({
       sender,
