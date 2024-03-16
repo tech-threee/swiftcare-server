@@ -25,12 +25,13 @@ export default class StaffSchema {
     }
   }
   static async fetchByRoleWithoutpagination(
-    payload: FindStaffWhere,
+    role: string | null,
   ) {
     try {
-      const staff = await STAFF.find({
-        [payload.field]: payload.value,
-      });
+      const staff = await STAFF.find(role ? {
+        role,
+      } : {});
+
 
       return staff;
     } catch (error) {

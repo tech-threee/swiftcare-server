@@ -281,7 +281,7 @@ export async function CreateAllPatientsCommunique(
     return next(error);
   }
 }
-export async function CreateSomeStaffCommunique(
+export async function CreateStaffCommunique(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -326,7 +326,7 @@ export async function CreateSomeStaffCommunique(
     const payload = req.body as CreateCommunicationRequestPayload;
 
 
-    const staff = await StaffSchema.fetchByRoleWithoutpagination({ field: "role", value: role })
+    const staff = await StaffSchema.fetchByRoleWithoutpagination(role ? role : null)
     // create a communication row
     const communication = await CommunicationSchema.create({
       sender,

@@ -4,7 +4,7 @@ import AppConstants from '../../constants/app.constant';
 import { IS_LOGGEDIN } from '../../middlewares/auth';
 import CommunicationRules from '../../validation/communication.rules';
 import ValidationMiddleware from '../../validation/validation.middleware';
-import CreateCommunication, { CreateAllPatientsCommunique, CreateIndividualCommunique, CreateSomeStaffCommunique } from './controllers/create.controller';
+import CreateCommunication, { CreateAllPatientsCommunique, CreateIndividualCommunique, CreateStaffCommunique } from './controllers/create.controller';
 import ReadBulkCommunications from './controllers/read_bulk.controller';
 import ReadOneCommunication from './controllers/read_one.controller';
 import ReplyCommunication from './controllers/reply.controller';
@@ -32,12 +32,12 @@ router.post(
     //     CommunicationRules.create,
     //     AppConstants.REQUEST_TYPE.BODY,
     // ),
-    CreateCommunication,
+    CreateIndividualCommunique,
 );
 
-router.post("/individual", IS_LOGGEDIN, CreateIndividualCommunique)
+// router.post("/individual", IS_LOGGEDIN, CreateIndividualCommunique)
 
-router.post("/staff", IS_LOGGEDIN, CreateSomeStaffCommunique)
+router.post("/staff", IS_LOGGEDIN, CreateStaffCommunique)
 router.post("/patients", IS_LOGGEDIN, CreateAllPatientsCommunique)
 
 // list the communications that this user has initiated
