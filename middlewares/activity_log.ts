@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 import { ACTIVITY_LOG } from '../models';
 
-// TODO: fix this code
 export const logActivity = (
   req: Request,
   res: Response,
