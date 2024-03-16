@@ -1,29 +1,21 @@
 import { EmergencyContact } from '.';
 import mongoose from 'mongoose';
+import { MODULES_KEY } from './login.interface';
 
-export interface StaffRecord {
+export interface IStaff {
   name: string;
   email: string;
   dob: string;
   phone: string;
   sid: string;
-  department: string;
+  role: MODULES_KEY;
+  specialty: string;
   emergency_contacts?: EmergencyContact[] | null;
-}
-
-export interface DoctorInterface extends StaffRecord {
-  specialization: string;
-}
-
-export interface NurseInterface extends StaffRecord { }
-
-interface ProjectArea {
-  projectAreaId: mongoose.Types.ObjectId;
-  status: string; // active | inactive;
+  image: string
 }
 
 export interface FindStaffWhere {
-  field: keyof StaffRecord;
+  field: keyof IStaff;
   value: string;
 }
 
@@ -32,17 +24,13 @@ export interface Pagination {
   skip: number;
 }
 
-export interface Lecturer {
-  image: string;
-  title: string;
-  surname: string;
-  otherNames: string;
-  staffID: string;
-  email: string;
-  phone: string;
-  projectArea: ProjectArea[];
-  officeHours: string;
-  officeLocation: string;
+
+export interface IStaffSchema extends IStaff, mongoose.Document {
+  _id: mongoose.Types.ObjectId;
+  createdAt: string;
+  updatedAt: string;
+  token: string;
+  pin: string
 }
 
 export interface SearchWithPagination extends Pagination {
