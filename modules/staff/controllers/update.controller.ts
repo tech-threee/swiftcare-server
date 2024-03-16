@@ -27,9 +27,7 @@ export async function ProcessUpdateStaffData(
       return new ResponseHandler(res).failure('Staff not found');
     }
 
-    const isTakenStaffId = await StaffSchema.isExistingStaffID(
-      payload.sid,
-    );
+    const isTakenStaffId = await StaffSchema.isExistingStaffID(payload.sid);
     if (isTakenStaffId && Staff.sid !== payload.sid) {
       return new ResponseHandler(res).failure('Staff ID is already taken');
     }
@@ -59,8 +57,6 @@ export default async function Update(
   next: NextFunction,
 ) {
   try {
-
-
     const payload: IStaffSchema = req.payload;
 
     // File's image url

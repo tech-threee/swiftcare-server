@@ -17,8 +17,8 @@ export default class PatientSchema {
     try {
       return await PATIENT.create(patient);
     } catch (error) {
-      console.log(">>>>>>>>>>>>", error)
-      throw new ApiError("Add patient failed")
+      console.log('>>>>>>>>>>>>', error);
+      throw new ApiError('Add patient failed');
     }
   }
 

@@ -8,7 +8,7 @@ export interface IPatient {
   pid?: string;
   emergency_contacts?: EmergencyContact[] | null;
   weight?: string;
-  image?:string
+  image?: string;
 }
 
 export interface MedicalRecord {
@@ -24,25 +24,25 @@ export interface PhysicianInformation {
   notes: string;
 }
 
-export interface InsuranceInformation { }
+export interface InsuranceInformation {}
 
 export interface IPatientSchema extends IPatient, mongoose.Document {
   _id: mongoose.Types.ObjectId;
   createdAt: string;
   updatedAt: string;
   token: string;
-  otp: string
+  otp: string;
 }
 
-export interface IStudentModel extends mongoose.Model<IPatientSchema> { }
+export interface IStudentModel extends mongoose.Model<IPatientSchema> {}
 
 export interface IPatientFilter
   extends mongoose.FilterQuery<
     Partial<Pick<IPatient, 'email' | 'name' | 'phone' | 'pid'>>
-  > { }
+  > {}
 
 export interface IPatientUpdateParam
-  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone' | 'image'>> { }
+  extends Partial<Pick<IPatient, 'name' | 'email' | 'phone' | 'image'>> {}
 
 export interface IPaginationParam {
   limit: number;

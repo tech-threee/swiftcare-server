@@ -54,7 +54,7 @@ export default class AuthSchema {
       const { accessToken, refreshToken } = GenerateToken({
         id: loginRow.sid,
         role: loginRow.role,
-        _id: loginRow._id
+        _id: loginRow._id,
       });
 
       // loginRow.lastLogin = new Date();
@@ -118,7 +118,7 @@ export default class AuthSchema {
       // TODO: abstract the string literal after the module is implemented
       const { accessToken, refreshToken } = GenerateToken({
         id: loginRow.pid,
-        _id: loginRow._id
+        _id: loginRow._id,
       });
 
       loginRow.lastLogin = new Date();
@@ -147,5 +147,4 @@ export default class AuthSchema {
   static async fetchByPatientPid(sid: string) {
     return (await PATIENT.findOne({ sid })) as Login;
   }
-
 }

@@ -26,9 +26,7 @@ export default async function StaffLogin(
       );
     }
 
-    const responseDate = await AuthSchema.authenticateStaff(
-      payload
-    );
+    const responseDate = await AuthSchema.authenticateStaff(payload);
 
     const user = await StaffSchema.fetchBySid(payload.sid);
 

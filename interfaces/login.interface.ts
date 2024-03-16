@@ -33,9 +33,8 @@ export interface PatientLoginAuth {
 
 export interface UserTokenPayload {
   id: string;
-  _id: mongoose.Types.ObjectId
+  _id: mongoose.Types.ObjectId;
   role?: MODULES_KEY;
 }
-
 
 export type MODULES_KEY = keyof typeof AppConstants.MODULES;

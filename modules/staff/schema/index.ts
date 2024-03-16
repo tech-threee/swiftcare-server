@@ -27,7 +27,7 @@ export default class StaffSchema {
 
   static async addSingle(payload: IStaff) {
     try {
-      await STAFF.create({ ...payload });
+      return await STAFF.create({ ...payload });
     } catch (error) {
       throw error;
     }

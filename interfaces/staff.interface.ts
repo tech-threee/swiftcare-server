@@ -12,7 +12,7 @@ export interface IStaff {
   specialty: string;
   emergency_contacts?: EmergencyContact[] | null;
   image: string;
-  pin: string
+  pin: string;
 }
 
 export interface FindStaffWhere {
@@ -24,7 +24,6 @@ export interface Pagination {
   limit: number;
   skip: number;
 }
-
 
 export interface IStaffSchema extends IStaff, mongoose.Document {
   _id: mongoose.Types.ObjectId;

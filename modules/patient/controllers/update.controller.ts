@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
 import ResponseHandler from '../../../handlers/response.handler';
-import { IPatient, IPatientSchema } from '../../../interfaces/patient.interface';
+import {
+  IPatient,
+  IPatientSchema,
+} from '../../../interfaces/patient.interface';
 import { CastToId, IsValidId } from '../../../utils/functions';
 import PatientSchema from '../schema';
 
@@ -27,19 +30,23 @@ export async function ProcessUpdateData(
       return new ResponseHandler(res).failure('Staff not found');
     }
 
-    const isTakenStaffId = await PatientSchema.patientWithPropExists(
-      { sid: payload.pid },
-    );
+    const isTakenStaffId = await PatientSchema.patientWithPropExists({
+      sid: payload.pid,
+    });
     if (isTakenStaffId && Staff.pid !== payload.pid) {
       return new ResponseHandler(res).failure('Staff ID is already taken');
     }
 
-    const isTakenEmail = await PatientSchema.patientWithPropExists({ email: payload.email });
+    const isTakenEmail = await PatientSchema.patientWithPropExists({
+      email: payload.email,
+    });
     if (isTakenEmail && Staff.email !== payload.email) {
       return new ResponseHandler(res).failure('Email is already used');
     }
 
-    const isTakenPhone = await PatientSchema.patientWithPropExists({ phone: payload.phone });
+    const isTakenPhone = await PatientSchema.patientWithPropExists({
+      phone: payload.phone,
+    });
     if (isTakenPhone && Staff.phone !== payload.phone) {
       return new ResponseHandler(res).failure('Phone is already used');
     }
@@ -59,8 +66,6 @@ export default async function UpdateStaff(
   next: NextFunction,
 ) {
   try {
-
-
     const payload: IPatientSchema = req.payload;
 
     // File's image url
