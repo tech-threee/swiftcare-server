@@ -25,6 +25,32 @@ export default class BookingsSchema {
         }
     }
 
+    static async countUserBookings(authUser: { id: string; role: string; _id: mongoose.Types.ObjectId }): Promise<number> {
+        try {
+            let query: any = {};
+
+            // If the role is patient, query bookings where patient is the authUser._id
+            if (authUser.role === 'DOCTOR') {
+                query.doctor = authUser._id;
+            }
+            // If the role is doctor, query bookings where doctor is the authUser._id
+            else if (authUser.role === 'PATIENT') {
+                query.patient = authUser._id;
+            }
+            // If the role is neither patient nor doctor, return 0
+            else {
+                return 0;
+            }
+
+            // Count the bookings based on the constructed query
+            const bookingCount = await BOOKING.countDocuments(query);
+
+            return bookingCount;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     static async rescheduleBooking(id: mongoose.Types.ObjectId, date: string) {
         try {
             return await BOOKING.findByIdAndUpdate(id, {

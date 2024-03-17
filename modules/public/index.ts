@@ -4,6 +4,6 @@ import { IS_LOGGEDIN } from "../../middlewares/auth";
 
 const router = Router()
 
-router.get("/", GLOBAL_COUNT)
+router.get("/", IS_LOGGEDIN, GLOBAL_COUNT)
 
 export default router

@@ -38,6 +38,27 @@ export default class CommunicationSchema {
     return communication;
   }
 
+  static async countUserCommunications(id: mongoose.Types.ObjectId): Promise<number> {
+    try {
+      // Count communications where the provided id is the sender's participantId
+      const senderCount = await COMMUNICATION.countDocuments({
+        'sender.participantId': id
+      });
+
+      // Count communications where the provided id is found in the recipients' participantId
+      const recipientCount = await COMMUNICATION.countDocuments({
+        'recipients.participantId': id
+      });
+
+      // Total count is the sum of senderCount and recipientCount
+      const totalCount: number = senderCount + recipientCount;
+
+      return totalCount;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async fetchPaginatedBulk(
     senderId: mongoose.Types.ObjectId,
     payload: Pagination,
