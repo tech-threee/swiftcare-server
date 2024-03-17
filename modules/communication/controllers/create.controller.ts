@@ -45,7 +45,7 @@ export default async function CreateAllStaffBroadcast(
       email: string;
       name: string
     } = {
-      ...loginRow
+      ...loginRow._doc
     }
 
 
@@ -133,8 +133,8 @@ export async function CreateIndividualCommunique(
       _id: mongoose.Types.ObjectId;
       email: string;
       name: string
-    }  = {
-      ...loginRow
+    } = {
+      ...loginRow._doc
     }
 
 
@@ -220,8 +220,8 @@ export async function CreateAllPatientsCommunique(
       _id: mongoose.Types.ObjectId;
       email: string;
       name: string
-    }  = {
-      ...loginRow
+    } = {
+      ...loginRow._doc
     }
 
 
@@ -295,16 +295,13 @@ export async function CreateStaffCommunique(
 
     // get the login row for this user and use this to fetch the appropriate
     let loginRow;
-    // console.log("<<>>", Object.keys(AppConstants.MODULES))
     if (!Object.keys(AppConstants.MODULES).includes(authUser.role)) {
-      console.log("isPatient")
+      // console.log("isPatient")
       loginRow = await AuthSchema.fetchByPatientId(authUser._id);
     } else {
-      console.log("isStaff")
+      // console.log("isStaff")
       loginRow = await AuthSchema.fetchByStaffId(authUser._id);
     }
-
-    console.log({ loginRow })
     if (!loginRow) {
       return new ResponseHandler(res).error(
         new ApiError('Action forbidden', HttpStatus.Forbidden),
@@ -317,7 +314,7 @@ export async function CreateStaffCommunique(
       email: string;
       name: string
     } = {
-      ...loginRow
+      ...loginRow._doc
     }
 
     console.log({ user })

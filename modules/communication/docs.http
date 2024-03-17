@@ -1,5 +1,5 @@
 @BASE_URL=http://localhost:1000
-@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1OTU5OTgzNDQiLCJfaWQiOiI2NWY1OWY5ZTZjYjZjMzU2ZTU4NmZhMDgiLCJyb2xlcyI6IklUIiwiaWF0IjoxNzEwNjEyMDQ2LCJleHAiOjE3MTA2MTM4NDZ9.CfxKZ7B4HY0ohgwHvBkPYjG1Xh8O8Jn_wEwBnSEHgf4
+@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1OTU5OTgzNDQiLCJfaWQiOiI2NWY1OWY5ZTZjYjZjMzU2ZTU4NmZhMDgiLCJyb2xlIjoiSVQiLCJpYXQiOjE3MTA2MzcxMjgsImV4cCI6MTcxMDYzODkyOH0.laEXwBZLelg2ep3VzZZT8IkuYrfoyAgop73wQc5RglQ
 
 ### Initiate a communication
 POST {{BASE_URL}}/api/v1/communication/staff
@@ -7,7 +7,7 @@ Authorization: Bearer {{JWT}}
 Content-Type: application/json
 
 {
-  "text": "Hello"
+  "text": "Hello Team!"
 }
 
 
