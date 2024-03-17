@@ -8,6 +8,7 @@ import { SendEmail } from '../../../services/mail';
 import { IBooking } from '../../../interfaces/booking.interface';
 import mongoose from 'mongoose';
 import AppConstants from '../../../constants/app.constant';
+import { isISOString } from '../../../utils/functions';
 export const MakeBooking = async (
     req: Request,
     res: Response,
@@ -18,6 +19,11 @@ export const MakeBooking = async (
         // add it to req as req.user)
         const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
         const patient: { name: string, email: string } = req.body.patient
+
+
+        if (!isISOString(payload.date)) {
+            return new ResponseHandler(res).failure("Date must be an ISO String")
+        }
 
         if (!Object.keys(AppConstants.SPECIALITIES).includes(payload.issue)) {
             return new ResponseHandler(res).error(new ApiError(`${payload.issue} does not much overload ${Object.keys(AppConstants.SPECIALITIES).toString()}`))

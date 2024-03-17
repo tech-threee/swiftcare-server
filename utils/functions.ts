@@ -67,3 +67,12 @@ export const generateRandomHexColor = (): string => {
 
   return color;
 };
+
+
+export function isISOString(dateString: string): boolean {
+  // Try parsing the string as a Date object
+  const date = new Date(dateString);
+
+  // Check if the parsed date is a valid date and if the input string is exactly the same as the output of date.toISOString()
+  return date instanceof Date && !isNaN(date.getTime()) && dateString === date.toISOString();
+}
