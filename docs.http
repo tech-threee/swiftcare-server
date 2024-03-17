@@ -1,2 +1,2 @@
 # LOGIN REQUEST
-GET http://localhost:5000/api/v1/general/student
+GET http://localhost:1000/api/v1/public

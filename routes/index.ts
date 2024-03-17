@@ -6,6 +6,7 @@ import {
   AUTH_MODULE,
   PATIENT_MODULE,
   BOOKINGS_MODULE,
+  PUBLIC_MODULE,
 } from '../modules';
 
 const router = Router();
@@ -16,6 +17,7 @@ router.use('/communication', COMMUNICATION_MODULE);
 router.use('/patient', PATIENT_MODULE);
 router.use('/booking', BOOKINGS_MODULE);
 router.use('/staff', STAFF_MODULE);
+router.use('/public', PUBLIC_MODULE);
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     res.status(200).json({
