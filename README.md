@@ -58,6 +58,9 @@ In your App client, you can use either JavaScript Fetch API or [Axios](https://a
 
 - [x] [Auth Module](./modules/auth/README.md)
 - [x] [Patient Module](./modules/patient/README.md)
+- [x] [Staff Module](./modules/staff/README.md)
+- [x] [Communication Module](./modules/communication/README.md)
+- [x] [Booking Module](./modules/booking/README.md)
 
 ## :memo: License
 
