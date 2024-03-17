@@ -139,8 +139,8 @@ export default class PatientSchema {
   }
   static async fetchPaginatedBulk(payload: Pagination) {
     try {
-      const totalStaff = await PATIENT.countDocuments();
-      const staff = await PATIENT.find()
+      const totalPatients = await PATIENT.countDocuments();
+      const patients = await PATIENT.find()
         .skip((payload.skip - 1) * payload.limit)
         .limit(payload.limit)
         .sort({ createdAt: 'desc' })
@@ -148,8 +148,8 @@ export default class PatientSchema {
         .exec();
 
       return {
-        staff,
-        totalStaff,
+        patients,
+        totalPatients,
       };
     } catch (error) {
       throw error;
