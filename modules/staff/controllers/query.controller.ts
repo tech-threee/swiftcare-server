@@ -7,7 +7,6 @@ import {
   setPaginationParams,
 } from '../../../utils/functions';
 import StaffSchema from '../schema';
-import PatientSchema from '../../patient/schema';
 
 export default async function FetchBulkStaff(
   req: Request,
@@ -20,14 +19,14 @@ export default async function FetchBulkStaff(
       req.query.pageSize?.toString(),
     );
 
-    const { patients, totalPatients } = await PatientSchema.fetchPaginatedBulk({
+    const { staff, totalStaff } = await StaffSchema.fetchPaginatedBulk({
       skip: pageNumber,
       limit: pageSize,
     });
 
     return new ResponseHandler(res).successWithData({
-      patients,
-      pagination: getPaginationParams(totalPatients, pageNumber, pageSize),
+      staff,
+      pagination: getPaginationParams(totalStaff, pageNumber, pageSize),
     });
   } catch (error) {
     return next(error);
