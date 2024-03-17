@@ -205,13 +205,8 @@ export async function CreateAllPatientsCommunique(
     const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
 
     // get the login row for this user and use this to fetch the appropriate
-    let loginRow;
-    if (!Object.keys(AppConstants).includes(authUser.role)) {
-      loginRow = await AuthSchema.fetchByPatientId(authUser._id);
-    } else {
-      loginRow = await AuthSchema.fetchByStaffId(authUser._id);
-    }
-    if (!loginRow) {
+    const loginRow = await AuthSchema.fetchByPatientId(authUser._id);
+    if (!Object.keys(AppConstants.MODULES).includes(authUser.role)) {
       return new ResponseHandler(res).error(
         new ApiError('Action forbidden', HttpStatus.Forbidden),
       );
