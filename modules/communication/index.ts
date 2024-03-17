@@ -4,7 +4,7 @@ import AppConstants from '../../constants/app.constant';
 import { IS_LOGGEDIN } from '../../middlewares/auth';
 import CommunicationRules from '../../validation/communication.rules';
 import ValidationMiddleware from '../../validation/validation.middleware';
-import CreateCommunication, { CreateAllPatientsCommunique, CreateIndividualCommunique, CreateStaffCommunique } from './controllers/create.controller';
+import { CreateAllPatientsCommunique, CreateIndividualCommunique, CreateStaffCommunique } from './controllers/create.controller';
 import ReadBulkCommunications from './controllers/read_bulk.controller';
 import ReadOneCommunication from './controllers/read_one.controller';
 import ReplyCommunication from './controllers/reply.controller';
@@ -14,16 +14,6 @@ const router = Router();
 // TODO: Authentication is required here
 // the user would have to pass their jwt
 
-// Initiate a communication
-router.post(
-    '/',
-    IS_LOGGEDIN,
-    // ValidationMiddleware(
-    //     CommunicationRules.create,
-    //     AppConstants.REQUEST_TYPE.BODY,
-    // ),
-    CreateCommunication,
-);
 
 router.post(
     '/',

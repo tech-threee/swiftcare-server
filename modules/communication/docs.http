@@ -1,5 +1,5 @@
 @BASE_URL=http://localhost:1000
-@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1OTU5OTgzNDQiLCJfaWQiOiI2NWY1OWY5ZTZjYjZjMzU2ZTU4NmZhMDgiLCJyb2xlIjoiSVQiLCJpYXQiOjE3MTA2NDcxMzAsImV4cCI6MTcxMDY0ODkzMH0.fvPQ4MLtLanARBJdJNA3XiPN3aqaxSjvIcB7i1QygIs
+@JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1OTU5OTgzNDQiLCJfaWQiOiI2NWY1OWY5ZTZjYjZjMzU2ZTU4NmZhMDgiLCJyb2xlIjoiSVQiLCJpYXQiOjE3MTA2NDkwMDgsImV4cCI6MTcxMDY1MDgwOH0.NNbOucYMv4ypT9X5WOZEZADB7We_BM3Txj2hCvLsQVQ
 
 ### Initiate a communication
 POST {{BASE_URL}}/api/v1/communication/staff
@@ -11,23 +11,16 @@ Content-Type: application/json
 }
 
 
-### List the communications that this user has initiated
-GET {{BASE_URL}}/api/v1/communication/
-Authorization: Bearer {{JWT}}
-Content-Type: application/json
-
-
-### Read a communication
-GET {{BASE_URL}}/api/v1/communication/65d7b21f1b06875bf4e447af
-Authorization: Bearer {{JWT}}
-Content-Type: application/json
-
-
-### Add a reply to a communication
-POST {{BASE_URL}}/api/v1/communication/65d7b21f1b06875bf4e447af
+### send communication
+POST {{BASE_URL}}/api/v1/communication
 Authorization: Bearer {{JWT}}
 Content-Type: application/json
 
 {
-  "text": "Hi"
+  "text": "Hello Sir",
+  "recipients": [{
+    "participantId": "65f66a36d0dd6c07508308dc",
+    "email": "s.bentilzone@gmail.com",
+    "role": "DOCTOR"
+  }]
 }
