@@ -7,10 +7,10 @@ import { UpdateAppointment } from "./controllers/status.controller";
 const router = Router()
 
 // Make Bookings
-router.post("/", IS_LOGGEDIN)
+router.post("/", IS_LOGGEDIN, VERIFY.PATIENT, MakeBooking)
 
 // Fetch my bookings
-router.get("/", IS_LOGGEDIN, VERIFY.PATIENT, MakeBooking)
+router.get("/", IS_LOGGEDIN)
 // router.put("/", IS_LOGGEDIN, VERIFY.DOCTOR, UpdateAppointment)
 router.delete("/:id")
 router.patch("/change-status/:id", IS_LOGGEDIN, VERIFY.DOCTOR, UpdateAppointment)

@@ -8,7 +8,8 @@ const communicationSchema = new mongoose.Schema<Communication>(
     sender: {
       participantId: mongoose.Schema.Types.ObjectId,
       role: {
-        enum: Object.values(AppConstants.MODULES),
+        type: String,
+        enum: Object.keys(AppConstants.MODULES),
       },
       email: String,
     },
@@ -16,7 +17,8 @@ const communicationSchema = new mongoose.Schema<Communication>(
       {
         participantId: mongoose.Schema.Types.ObjectId,
         role: {
-          enum: Object.values(AppConstants.MODULES),
+          type: String,
+          enum: Object.keys(AppConstants.MODULES),
         },
         email: String,
       },
@@ -27,7 +29,8 @@ const communicationSchema = new mongoose.Schema<Communication>(
         sender: {
           participantId: mongoose.Schema.Types.ObjectId,
           role: {
-            enum: Object.values(AppConstants.MODULES),
+            type: String,
+            enum: Object.keys(AppConstants.MODULES),
           },
           email: String,
         },

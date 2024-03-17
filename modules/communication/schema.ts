@@ -11,6 +11,7 @@ import { DecodeBase64, EncodeBase64 } from '../../utils/functions';
 export default class CommunicationSchema {
   static async create(payload: CreateCommunicationType) {
     try {
+      console.log({ payload })
       return await COMMUNICATION.create({
         ...payload,
         text: EncodeBase64(payload.text),

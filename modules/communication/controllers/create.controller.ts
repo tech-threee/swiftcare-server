@@ -322,7 +322,7 @@ export async function CreateStaffCommunique(
 
     // compose the sender: { participantId, userType, email }
     const sender = {
-      participantId: CastToId(user!._id.toString()),
+      participantId: user!._id,
       role: authUser.role,
       email: user!.email,
     };
