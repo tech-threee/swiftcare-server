@@ -7,7 +7,7 @@ export const GLOBAL_COUNT = async (req: Request, res: Response, next: NextFuncti
     try {
         // add it to req as req.user)
         const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
-        const count: { staff: number, bookings: number, communications: number, patients: number } = await FETCH_COUNTS(authUser)
+        const count: { staff: {}, bookings: number, communications: number, patients: number } = await FETCH_COUNTS(authUser)
 
         return new ResponseHandler(res).successWithData({
             ...count
