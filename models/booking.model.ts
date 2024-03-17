@@ -16,7 +16,7 @@ const BookingsSchema = new mongoose.Schema<BookingSchema>(
         },
         status: {
             type: String,
-            enum: Object.keys(AppConstants.BOOKING_STATUSES),
+            enum: Object.values(AppConstants.BOOKING_STATUSES),
             // default: AppConstants.BOOKING_STATUSES.PENDING
         },
         doctor: mongoose.Types.ObjectId

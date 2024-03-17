@@ -4,11 +4,13 @@ import { HttpStatus } from '../../../handlers/handler.util';
 import {
   FindStaffWhere,
   IStaff,
+  IStaffSchema,
   Pagination,
   SearchWithPagination,
 } from '../../../interfaces/staff.interface';
 import { STAFF } from '../../../models';
 import ApiError from '../../../utils/apiError';
+import { FilterQuery } from 'mongoose';
 
 export default class StaffSchema {
   private static async isExistingField(
@@ -37,6 +39,15 @@ export default class StaffSchema {
     } catch (error) {
       throw error;
     }
+  }
+
+  static async Lookup(query: FilterQuery<IStaffSchema>) {
+    try {
+      return await STAFF.find(query)
+    } catch (error) {
+      throw error
+    }
+
   }
 
   static async addSingle(payload: IStaff) {

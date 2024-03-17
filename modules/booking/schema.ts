@@ -3,6 +3,7 @@ import { BOOKING } from "../../models";
 import { Pagination } from "../../interfaces";
 import AppConstants from "../../constants/app.constant";
 import { CastToId } from "../../utils/functions";
+import StaffSchema from "../staff/schema";
 
 export default class BookingsSchema {
     static async create(payload: BookingsSchema) {
@@ -116,7 +117,24 @@ export default class BookingsSchema {
     }
     static async LookupDoctor(payload: { specialty: string, date: string }): Promise<{ name: string, email: string, _id: mongoose.Types.ObjectId } | null> {
         try {
+            // Query for doctors with the given specialty
+            const doctors = await StaffSchema.Lookup({ role: "DOCTOR", specialty: payload.specialty })
 
+            // If there are no doctors with the given specialty, return null
+            if (!doctors || doctors.length === 0) {
+                return null;
+            }
+            // Iterate over each doctor
+            for (const doctor of doctors) {
+                // Check if the doctor is booked on the provided date
+                const isBooked = await BOOKING.findOne({ doctor: doctor._id.toString(), date: payload.date });
+
+                // If the doctor is not booked, return their information
+                if (!isBooked) {
+                    const foundDoctor: { name: string, email: string, _id: mongoose.Types.ObjectId } = doctor;
+                    return foundDoctor
+                }
+            }
 
             return null
         } catch (error) {
