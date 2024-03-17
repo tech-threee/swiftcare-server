@@ -25,12 +25,12 @@ export default class AppConstants {
   };
 
   static readonly SPECIALITIES = {
-    SURGEON: "surgery",
-    DENTIST: "dental_problem",
-    GENERAL_PRACTITIONER: "regular_checkup",
-    OBSTETRICIAN: "manternity",
-    PEDIATRICIAN: "children",
-    LAB_TECHNICIAN: "lab"
+    surgery: "SURGEON",
+    dental_problem: "DENTIST",
+    regular_checkup: "GENERAL_PRACTITIONER",
+    manternity: "OBSTETRICIAN",
+    children: "PEDIATRICIAN",
+    lab: "LAB_TECHNICIAN"
   };
 
   static readonly BOOKING_STATUSES = {

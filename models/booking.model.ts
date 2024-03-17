@@ -11,11 +11,13 @@ const BookingsSchema = new mongoose.Schema<BookingSchema>(
         },
         issue: {
             type: String,
-            enum: Object.keys(AppConstants.SPECIALITIES)
+            enum: Object.keys(AppConstants.SPECIALITIES),
+            required: true
         },
         status: {
             type: String,
-            enum: Object.keys(AppConstants.BOOKING_STATUSES)
+            enum: Object.keys(AppConstants.BOOKING_STATUSES),
+            // default: AppConstants.BOOKING_STATUSES.PENDING
         },
         doctor: mongoose.Types.ObjectId
 

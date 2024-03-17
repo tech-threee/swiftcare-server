@@ -1,8 +1,9 @@
-import { CreateError, VerifyToken } from '../utils';
+import { CreateError } from '../utils';
 import { NextFunction, Request, Response } from 'express';
 
 import { JwtPayload } from 'jsonwebtoken';
 import AppConstants from '../constants/app.constant';
+import { VerifyToken } from '../utils/auth';
 const VerifyAccessToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { authorization } = req.headers;

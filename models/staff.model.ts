@@ -31,7 +31,11 @@ const StaffSchema = new mongoose.Schema<IStaffSchema>(
       },
     ],
     token: String,
-    specialty: String,
+    specialty: {
+      type: String,
+      enum: Object.values(AppConstants.SPECIALITIES),
+      default: null
+    },
     role: {
       type: String,
       enum: Object.keys(AppConstants.MODULES),

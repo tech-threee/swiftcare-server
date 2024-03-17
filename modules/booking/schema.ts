@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { BOOKING } from "../../models";
 import { Pagination } from "../../interfaces";
 import AppConstants from "../../constants/app.constant";
+import { CastToId } from "../../utils/functions";
 
 export default class BookingsSchema {
     static async create(payload: BookingsSchema) {
@@ -17,7 +18,7 @@ export default class BookingsSchema {
         try {
             return await BOOKING.findByIdAndUpdate(id, {
                 status
-            })
+            }, { new: true })
         } catch (error) {
             throw error;
         }
@@ -111,6 +112,15 @@ export default class BookingsSchema {
             }
         } catch (error) {
             throw error;
+        }
+    }
+    static async LookupDoctor(payload: { specialty: string, date: string }): Promise<{ name: string, email: string, _id: mongoose.Types.ObjectId } | null> {
+        try {
+
+
+            return null
+        } catch (error) {
+            throw error
         }
     }
 

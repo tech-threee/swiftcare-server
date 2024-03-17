@@ -1,6 +1,7 @@
 import { EmergencyContact } from '.';
 import mongoose from 'mongoose';
 import { MODULES_KEY } from './login.interface';
+import AppConstants from '../constants/app.constant';
 
 export interface IStaff {
   name: string;
@@ -9,7 +10,7 @@ export interface IStaff {
   phone: string;
   sid: string;
   role: MODULES_KEY;
-  specialty: string;
+  specialty: keyof typeof AppConstants.SPECIALITIES;
   emergency_contacts?: EmergencyContact[] | null;
   image: string;
   pin: string;
