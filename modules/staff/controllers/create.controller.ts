@@ -26,7 +26,7 @@ export const CreateStaff = async (
     } = req.body;
     try {
 
-        if (!name || !email || !dob || !phone || !role || !specialty) {
+        if (!name || !email || !dob || !phone || !role) {
             return new ResponseHandler(res).failure("Some required fields are missing")
         }
 
