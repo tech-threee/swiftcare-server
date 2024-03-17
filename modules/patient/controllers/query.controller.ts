@@ -19,14 +19,14 @@ export default async function FetchBulk(
       req.query.pageSize?.toString(),
     );
 
-    const { staff, totalStaff } = await PatientSchema.fetchPaginatedBulk({
+    const { patients, totalPatients } = await PatientSchema.fetchPaginatedBulk({
       skip: pageNumber,
       limit: pageSize,
     });
 
     return new ResponseHandler(res).successWithData({
-      staff,
-      pagination: getPaginationParams(totalStaff, pageNumber, pageSize),
+      patients,
+      pagination: getPaginationParams(totalPatients, pageNumber, pageSize),
     });
   } catch (error) {
     return next(error);
