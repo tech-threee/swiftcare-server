@@ -19,7 +19,7 @@ export const MakeBooking = async (
         const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
         const patient: { name: string, email: string } = req.body.patient
 
-        if (Object.keys(AppConstants.SPECIALITIES).includes(payload.issue)) {
+        if (!Object.keys(AppConstants.SPECIALITIES).includes(payload.issue)) {
             return new ResponseHandler(res).error(new ApiError(`${payload.issue} does not much overload ${Object.keys(AppConstants.SPECIALITIES).toString()}`))
         }
 

@@ -20,7 +20,7 @@ export const UpdateAppointment = async (
         const authUser: { id: string; role: string; _id: mongoose.Types.ObjectId } = req.user;
         const patient: { name: string, email: string } = req.body.patient
 
-        if (Object.keys(AppConstants.BOOKING_STATUSES).includes(payload.status)) {
+        if (!Object.keys(AppConstants.BOOKING_STATUSES).includes(payload.status)) {
             return new ResponseHandler(res).error(new ApiError(`${payload.status} does not much overload ${Object.keys(AppConstants.BOOKING_STATUSES).toString()}`))
         }
 

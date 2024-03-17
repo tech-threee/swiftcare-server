@@ -1,0 +1,17 @@
+@BASE_URL=http://localhost:1000
+@STAFF_JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1OTU5OTgzNDQiLCJfaWQiOiI2NWY1OWY5ZTZjYjZjMzU2ZTU4NmZhMDgiLCJyb2xlIjoiSVQiLCJpYXQiOjE3MTA2NDkwMDgsImV4cCI6MTcxMDY1MDgwOH0.NNbOucYMv4ypT9X5WOZEZADB7We_BM3Txj2hCvLsQVQ
+@PATIENT_JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTA1NjUzMjA2NzAiLCJfaWQiOiI2NWY1MjdjOTRkYmJjZmRmMTc1MThhZjUiLCJyb2xlIjoiUEFUSUVOVCIsImlhdCI6MTcxMDY2Njc3MSwiZXhwIjoxNzEwNjY4NTcxfQ.iTq-UqNnopKcCGzN9hA2YPdRDNm1a3odAHX9oDGHRhM
+
+### Initiate a communication
+POST {{BASE_URL}}/api/v1/booking
+Authorization: Bearer {{PATIENT_JWT}}
+Content-Type: application/json
+
+{
+  "patient": {
+    "name": "Bouncer",
+    "email": "techthree521@gmail.com"
+  },
+  "issue": "regular_checkup",
+  "date": "2024-03-17T08:08:51.740Z"
+}

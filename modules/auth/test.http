@@ -17,7 +17,7 @@ POST {{BASE_URL}}/auth/patient
 Content-Type: application/json
 
 {
-    "email": "techthree521@gmail.com"
+    "email": "bentilshadrack72@gmail.com"
 }
 
 ### VERIFY PATIENT OTP
@@ -25,8 +25,8 @@ POST {{BASE_URL}}/auth/patient/verify-otp
 Content-Type: application/json
 
 {
-    "email": "tech  three521@gmail.com", 
-    "otp": "833675"
+    "email": "bentilshadrack72@gmail.com", 
+    "otp": "398811"
 }
 
 
