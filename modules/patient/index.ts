@@ -3,7 +3,7 @@ import { Signup } from './controllers/signup.controller';
 import ValidationMiddleware from '../../validation/validation.middleware';
 import AppConstants from '../../constants/app.constant';
 import PatientValidations from '../../validation/patient.validations';
-import FetchBulk from '../staff/controllers/query.controller';
+import FetchBulk from './controllers/query.controller';
 import Update, { ProcessUpdateData } from './controllers/update.controller';
 import DeleteBulk from './controllers/delete_bulk.controller';
 import DeleteSingle from './controllers/delete_single.controller';
