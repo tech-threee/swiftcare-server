@@ -5,6 +5,7 @@ import {
   STAFF_MODULE,
   AUTH_MODULE,
   PATIENT_MODULE,
+  BOOKINGS_MODULE,
 } from '../modules';
 
 const router = Router();
@@ -13,6 +14,7 @@ const app = express();
 router.use('/auth', AUTH_MODULE);
 router.use('/communication', COMMUNICATION_MODULE);
 router.use('/patient', PATIENT_MODULE);
+router.use('/booking', BOOKINGS_MODULE);
 router.use('/staff', STAFF_MODULE);
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
